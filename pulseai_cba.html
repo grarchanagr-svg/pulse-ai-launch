@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseAI - Interactive Cost-Benefit Analysis</title>
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --success: #16a34a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            color: #0f172a;
+        }
+
+        h1 {
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        /* Interactive Controls */
+        .slider-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .slider-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .slider-group input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary);
+        }
+
+        .slider-val {
+            float: right;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Financial Summary Box */
+        .summary-box {
+            background: #f0fdf4;
+            border: 2px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .roi-stat {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--success);
+            margin: 0.5rem 0;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: var(--card-bg);
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+        }
+
+        .priority-badge {
+            background: #dbeafe;
+            color: #1e40af;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+        }
+
+        blockquote {
+            border-left: 4px solid var(--primary);
+            background: #eef2ff;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            border-radius: 0 8px 8px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>PulseAI Initiative Framework</h1>
+
+    <!-- SECTION 1: INTERACTIVE CBA -->
+    <h2>1. Dynamic Cost-Benefit Analysis (CBA)</h2>
+    <p>Adjust the controls below to dynamically recalculate the financial projections for PulseAI (Baseline assumptions: $10M ARR SaaS, 10% baseline churn).</p>
+    
+    <div class="grid">
+        <!-- Controls Card -->
+        <div class="card">
+            <h3>Interactive Controls</h3>
+            
+            <div class="slider-group">
+                <label>Time Horizon: <span id="months-val" class="slider-val">18</span> months</label>
+                <input type="range" id="months-slider" min="6" max="36" step="6" value="18">
+            </div>
+
+            <div class="slider-group">
+                <label>Target Annual Churn Reduction: <span id="churn-val" class="slider-val">25</span>%</label>
+                <input type="range" id="churn-slider" min="5" max="50" step="5" value="25">
+            </div>
+
+            <div class="slider-group">
+                <label>Est. Monthly Engineering/Talent Cost: $<span id="talent-val" class="slider-val">13,333</span></label>
+                <input type="range" id="talent-slider" min="5000" max="25000" step="1000" value="13333">
+            </div>
+        </div>
+
+        <!-- Live Financial Outputs -->
+        <div class="card summary-box">
+            <h3>Projected Financial Health</h3>
+            <div id="roi-display" class="roi-stat">72%</div>
+            <p><strong>Estimated Return on Investment (ROI)</strong></p>
+            <hr style="border:0; border-top:1px solid #bbf7d0; margin: 1rem 0;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span>Total Benefits:</span> <span id="total-benefits-text" style="font-weight:600;">$525,000</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                <span>Total Project Costs:</span> <span id="total-costs-text" style="font-weight:600; color: #b91c1c;">$305,000</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 1.1rem; font-weight: 700;">
+                <span>Net Projected Value:</span> <span id="net-benefit-text">$220,000</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Line Items Breakdown -->
+    <div class="card" style="margin-bottom: 2.5rem;">
+        <h3>Calculated Line Items Breakdowns</h3>
+        <div class="grid" style="margin-bottom: 0;">
+            <div>
+                <h4>Monetary Benefits Breakdowns</h4>
+                <ul>
+                    <li>Retained ARR from Churn: <strong id="lbl-b1">$375,000</strong></li>
+                    <li>CS Time Savings/Automation: <strong id="lbl-b2">$90,000</strong></li>
+                    <li>Expansion Revenue Upsell: <strong id="lbl-b3">$60,000</strong></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Project Cost Breakdowns</h4>
+                <ul>
+                    <li>Development & Allocated Talent: <strong id="lbl-c1">$240,000</strong></li>
+                    <li>LLM API Calls & Inference: <strong id="lbl-c2">$35,000</strong></li>
+                    <li>Infra & Vector Storage: <strong id="lbl-c3">$18,000</strong></li>
+                    <li>Maintenance & Observability: <strong id="lbl-c4">$12,000</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: PRIORITIZATION -->
+    <h2>2. Initiative Prioritization Matrix</h2>
+    <p>Strategic framework prioritizing PulseAI's key operational capabilities on a scale of 1–5.</p>
+    <div class="card" style="overflow-x: auto; padding: 0.5rem;">
+        <table>
+            <thead>
+                <tr>
+                    <th>Initiative</th>
+                    <th>User Impact</th>
+                    <th>Technical Feasibility</th>
+                    <th>Strategic Alignment</th>
+                    <th>Priority Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>1. AI-Generated Account Health Summaries</strong><br><small>Aggregates tickets, emails, logs into a weekly digest.</small></td>
+                    <td>5</td>
+                    <td>4</td>
+                    <td>4</td>
+                    <td><span class="priority-badge">13 / 15 (High)</span></td>
+                </tr>
+                <tr>
+                    <td><strong>2. Predictive Churn Alerts & Playbooks</strong><br><small>Triggers automated internal alerts and playbooks.</small></td>
+                    <td>5</td>
+                    <td>3</td>
+                    <td>5</td>
+                    <td><span class="priority-badge">13 / 15 (High)</span></td>
+                </tr>
+                <tr>
+                    <td><strong>3. Customer-Facing Upsell Triggers</strong><br><small>AI drafts emails to healthy accounts showing expansion signals.</small></td>
+                    <td>3</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td><span class="priority-badge" style="background:#fef3c7; color:#92400e;">10 / 15 (Med)</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><small>* <em>Phase 1 Roadmap Priority:</em> Initiatives 1 & 2 run in parallel to secure high financial upside early.</small></p>
+
+    <br>
+
+    <!-- SECTION 3: STAKEHOLDER CONCERNS -->
+    <h2>3. Addressing Stakeholder Concerns</h2>
+    
+    <blockquote>
+        <strong>Pushback 1: "AI is too expensive and token costs are unpredictable."</strong><br>
+        <em>Rebuttal:</em> We aren't training foundational models. By utilizing structured API architectures, setting hard budget caps, and only parsing essential metadata, our scaling runtime costs stay manageable—accounting for less than 18% of the total budget.
+    </blockquote>
+
+    <blockquote>
+        <strong>Pushback 2: "What is the concrete ROI? AI projects often stall in R&D."</strong><br>
+        <em>Rebuttal:</em> This initiative maps directly to customer retention metrics. Based on our dynamic framework adjustments, saving just a handful of mid-market accounts from churning completely covers the operational baseline costs.
+    </blockquote>
+
+    <blockquote>
+        <strong>Pushback 3: "Why build this now? Can't our team just look at standard dashboards?"</strong><br>
+        <em>Rebuttal:</em> Legacy metrics show historical trends after a user has emotionally checked out. PulseAI works ahead of the curve, detecting semantic frustration signals in support chains proactively before standard churn timelines lock in.
+    </blockquote>
+</div>
+
+<script>
+    // Elements
+    const monthsSlider = document.getElementById('months-slider');
+    const churnSlider = document.getElementById('churn-slider');
+    const talentSlider = document.getElementById('talent-slider');
+
+    const monthsVal = document.getElementById('months-val');
+    const churnVal = document.getElementById('churn-val');
+    const talentVal = document.getElementById('talent-val');
+
+    // Output Text Elements
+    const totalBenefitsText = document.getElementById('total-benefits-text');
+    const totalCostsText = document.getElementById('total-costs-text');
+    const netBenefitText = document.getElementById('net-benefit-text');
+    const roiDisplay = document.getElementById('roi-display');
+
+    // Individual breakdown labels
+    const lblB1 = document.getElementById('lbl-b1');
+    const lblB2 = document.getElementById('lbl-b2');
+    const lblB3 = document.getElementById('lbl-b3');
+    const lblC1 = document.getElementById('lbl-c1');
+    const lblC2 = document.getElementById('lbl-c2');
+    const lblC3 = document.getElementById('lbl-c3');
+    const lblC4 = document.getElementById('lbl-c4');
+
+    function formatCurrency(num) {
+        return '$' + Math.round(num).toLocaleString();
+    }
+
+    function calculateCBA() {
+        const months = parseInt(monthsSlider.value);
+        const churnReductionPct = parseInt(churnSlider.value) / 100;
+        const monthlyTalent = parseInt(talentSlider.value);
+
+        // Update slider metric text labels
+        monthsVal.innerText = months;
+        churnVal.innerText = churnSlider.value;
+        talentVal.innerText = monthlyTalent.toLocaleString();
+
+        // 1. Calculate Benefits (Scaled by time horizon dynamically)
+        // Baseline: 10% annual churn on $10M ARR = $1M annual loss ($83,333 per month)
+        const monthlyBaselineChurnLoss = 83333;
+        const churnSavedPerMonth = monthlyBaselineChurnLoss * churnReductionPct;
+        const b1_churnARR = churnSavedPerMonth * months;
+        
+        // CS automation savings scales relative to months ($5,000/mo baseline value)
+        const b2_csSavings = 5000 * months;
+        
+        // Expansion revenue scaling ($3,333/mo baseline upsell value captured)
+        const b3_expansion = 3333.33 * months;
+
+        const totalBenefits = b1_churnARR + b2_csSavings + b3_expansion;
+
+        // 2. Calculate Costs (Scaled dynamically based on time horizon and input engineering cost)
+        const c1_talent = monthlyTalent * months;
+        
+        // Infrastructure, API, and Maintenance scale linearly with the timeline
+        const c2_api = 1944.44 * months;       // ~$35k per 18mo baseline
+        const c3_infra = 1000 * months;        // ~$18k per 18mo baseline
+        const c4_maintenance = 666.66 * months; // ~$12k per 18mo baseline
+
+        const totalCosts = c1_talent + c2_api + c3_infra + c4_maintenance;
+
+        // 3. Final Calculations
+        const netBenefit = totalBenefits - totalCosts;
+        const roiPercentage = totalCosts > 0 ? (netBenefit / totalCosts) * 100 : 0;
+
+        // Update detailed UI line item texts
+        lblB1.innerText = formatCurrency(b1_churnARR);
+        lblB2.innerText = formatCurrency(b2_csSavings);
+        lblB3.innerText = formatCurrency(b3_expansion);
+        lblC1.innerText = formatCurrency(c1_talent);
+        lblC2.innerText = formatCurrency(c2_api);
+        lblC3.innerText = formatCurrency(c3_infra);
+        lblC4.innerText = formatCurrency(c4_maintenance);
+
+        // Update totals panels
+        totalBenefitsText.innerText = formatCurrency(totalBenefits);
+        totalCostsText.innerText = formatCurrency(totalCosts);
+        netBenefitText.innerText = formatCurrency(netBenefit);
+        
+        // Style changes depending on positive/negative net returns
+        if(netBenefit >= 0) {
+            roiDisplay.style.color = "var(--success)";
+            netBenefitText.style.color = "var(--text)";
+            roiDisplay.innerText = Math.round(roiPercentage) + "%";
+        } else {
+            roiDisplay.style.color = "#b91c1c";
+            netBenefitText.style.color = "#b91c1c";
+            roiDisplay.innerText = Math.round(roiPercentage) + "%";
+        }
+    }
+
+    // Attach Input Event Listeners for real-time adjustments
+    monthsSlider.addEventListener('input', calculateCBA);
+    churnSlider.addEventListener('input', calculateCBA);
+    talentSlider.addEventListener('input', calculateCBA);
+
+    // Run calculations once on page launch
+    calculateCBA();
+</script>
+</body>
+</html>
