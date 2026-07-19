@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PulseAI Initiative Framework</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+    .section-card { box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.06); }
+    .soft-border { border: 1px solid #dbe4f0; }
+    .tab-active { background: #4f46e5 !important; color: #fff !important; border-color: #4f46e5 !important; }
+    .driver-active { background: #eef2ff !important; border-color: #c7d2fe !important; color: #3730a3 !important; }
+  </style>
+</head>
+<body class="text-slate-900 antialiased">
+
+  <main class="max-w-7xl mx-auto px-4 py-8 md:py-10 space-y-10">
+
+    <!-- Header -->
+    <section class="pb-2">
+      <div class="flex items-center justify-between gap-4 flex-wrap">
+        <div>
+          <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-950">
+            PulseAI Initiative Framework
+          </h1>
+          <p class="text-slate-600 mt-2">
+            Interactive primary persona and cost-benefit analysis for the Pulse AI product concept.
+          </p>
+        </div>
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 text-sm font-semibold">
+          <span class="w-2 h-2 rounded-full bg-indigo-500 animate-pulse"></span>
+          Gen AI + Customer Health Intelligence
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. Dynamic Cost-Benefit Analysis -->
+    <section class="space-y-5">
+      <div class="flex items-center gap-3">
+        <div class="h-9 w-1.5 rounded-full bg-indigo-600"></div>
+        <h2 class="text-2xl font-bold">1. Dynamic Cost-Benefit Analysis (CBA)</h2>
+      </div>
+
+      <p class="text-slate-600 max-w-5xl">
+        Adjust the controls below to dynamically recalculate the financial projections for PulseAI.
+        Baseline assumptions: <span class="font-semibold">$10M ARR SaaS</span>, <span class="font-semibold">10% baseline churn</span>.
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <!-- Controls -->
+        <div class="bg-white rounded-2xl p-6 section-card soft-border">
+          <h3 class="text-lg font-bold mb-5">Interactive Controls</h3>
+
+          <div class="space-y-7">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label for="horizon" class="font-medium text-slate-800">Time Horizon: months</label>
+                <span id="horizonVal" class="font-bold text-indigo-600">18</span>
+              </div>
+              <input id="horizon" type="range" min="6" max="18" value="18" step="1" class="w-full accent-indigo-600" />
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label for="churn" class="font-medium text-slate-800">Target Annual Churn Reduction: %</label>
+                <span id="churnVal" class="font-bold text-indigo-600">25</span>
+              </div>
+              <input id="churn" type="range" min="10" max="35" value="25" step="1" class="w-full accent-indigo-600" />
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label for="talent" class="font-medium text-slate-800">Est. Monthly Engineering/Talent Cost: $</label>
+                <span id="talentVal" class="font-bold text-indigo-600">13,000</span>
+              </div>
+              <input id="talent" type="range" min="5000" max="25000" value="13000" step="500" class="w-full accent-indigo-600" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Output -->
+        <div class="bg-emerald-50 rounded-2xl p-6 section-card border border-emerald-200">
+          <h3 class="text-lg font-bold text-center mb-6">Projected Financial Health</h3>
+
+          <div class="text-center">
+            <div id="roiPct" class="text-5xl md:text-6xl font-extrabold text-emerald-600">76%</div>
+            <div class="mt-2 text-slate-700 font-semibold">Estimated Return on Investment (ROI)</div>
+          </div>
+
+          <div class="mt-8 pt-5 border-t border-emerald-200 space-y-2 text-sm md:text-base">
+            <div class="flex items-center justify-between">
+              <span>Total Benefits:</span>
+              <span id="benefitsTotal" class="font-semibold text-slate-900">$524,998</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>Total Project Costs:</span>
+              <span id="costsTotal" class="font-semibold text-red-600">$299,000</span>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-emerald-200">
+              <span class="font-bold text-slate-900">Net Projected Value:</span>
+              <span id="netValue" class="font-extrabold text-slate-900">$225,999</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Breakdown -->
+      <div class="bg-white rounded-2xl p-6 section-card soft-border">
+        <h3 class="text-lg font-bold mb-6">Calculated Line Items Breakdowns</h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div>
+            <h4 class="font-bold mb-4">Monetary Benefits Breakdowns</h4>
+            <ul class="space-y-2 text-slate-700">
+              <li>• Retained ARR from Churn: <span class="font-bold text-slate-950" id="benefitArr">$374,999</span></li>
+              <li>• CS Time Savings/Automation: <span class="font-bold text-slate-950" id="benefitCs">$90,000</span></li>
+              <li>• Expansion Revenue Upsell: <span class="font-bold text-slate-950" id="benefitUpsell">$60,000</span></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-bold mb-4">Project Cost Breakdowns</h4>
+            <ul class="space-y-2 text-slate-700">
+              <li>• Development & Allocated Talent: <span class="font-bold text-slate-950" id="costDev">$234,000</span></li>
+              <li>• LLM API Calls & Inference: <span class="font-bold text-slate-950" id="costLlm">$35,000</span></li>
+              <li>• Infra & Vector Storage: <span class="font-bold text-slate-950" id="costInfra">$18,000</span></li>
+              <li>• Maintenance & Observability: <span class="font-bold text-slate-950" id="costMaint">$12,000</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. Primary Persona -->
+    <section class="space-y-5">
+      <div class="flex items-center gap-3">
+        <div class="h-9 w-1.5 rounded-full bg-indigo-600"></div>
+        <h2 class="text-2xl font-bold">2. PulseAI Target User Personas</h2>
+      </div>
+
+      <p class="text-slate-600 max-w-5xl">
+        Explore the profiles driving key adoption metrics. Sarah Jenkins is the primary persona.
+      </p>
+
+      <!-- Persona Tabs -->
+      <div class="flex flex-wrap gap-3" id="personaTabs">
+        <button class="persona-tab px-4 py-2 rounded-lg border soft-border bg-indigo-600 text-white font-semibold text-sm" data-persona="sarah">
+          Sarah Jenkins (VP of CS)
+        </button>
+        <button class="persona-tab px-4 py-2 rounded-lg border soft-border bg-white text-slate-700 font-semibold text-sm" data-persona="david">
+          David Chen (Head of Product)
+        </button>
+        <button class="persona-tab px-4 py-2 rounded-lg border soft-border bg-white text-slate-700 font-semibold text-sm" data-persona="elena">
+          Elena Rostova (Operations Director)
+        </button>
+      </div>
+
+      <!-- Persona Card -->
+      <div class="bg-white rounded-2xl p-4 md:p-6 section-card soft-border">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Left profile -->
+          <div class="lg:col-span-3 border-b lg:border-b-0 lg:border-r border-slate-200 pb-6 lg:pb-0 lg:pr-6">
+            <div class="flex lg:block items-start gap-4">
+              <div class="shrink-0">
+                <img
+                  id="personaImage"
+                  src="https://image.pollinations.ai/prompt/realistic%20professional%20portrait%20of%20Sarah%20Jenkins%2C%20VP%20of%20Customer%20Success%2C%20Indian%20woman%20in%20her%20early%2040s%2C%20business%20casual%20attire%2C%20modern%20SaaS%20office%2C%20soft%20natural%20lighting%2C%20photorealistic%2C%20high%20detail"
+                  alt="AI-generated portrait of Sarah Jenkins"
+                  class="w-28 h-28 rounded-full object-cover ring-4 ring-orange-100 shadow-md"
+                />
+              </div>
+              <div class="flex-1">
+                <h3 id="personaName" class="text-2xl font-extrabold text-slate-950">Sarah Jenkins</h3>
+                <p id="personaTitle" class="text-indigo-600 font-medium mt-1">VP of Customer Success</p>
+
+                <div class="mt-5 space-y-3 text-sm">
+                  <div><span class="font-bold">Age:</span> <span id="personaAge">42</span></div>
+                  <div class="border-t border-slate-200 pt-3"><span class="font-bold">Company Size:</span> <span id="personaCompany">250 Employees</span></div>
+                  <div class="border-t border-slate-200 pt-3"><span class="font-bold">Industry:</span> <span id="personaIndustry">Enterprise B2B SaaS</span></div>
+                  <div class="border-t border-slate-200 pt-3"><span class="font-bold">Experience:</span> <span id="personaExperience">15+ Years in CS</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right content -->
+          <div class="lg:col-span-9">
+            <div class="space-y-6">
+              <div class="bg-indigo-50 rounded-xl p-5 border border-indigo-100">
+                <p id="personaQuote" class="italic text-slate-700 text-base md:text-lg leading-relaxed">
+                  “We are constantly fighting fires instead of building relationships because our health scores lag behind actual customer sentiment.”
+                </p>
+              </div>
+
+              <div>
+                <h4 class="flex items-center gap-2 font-bold text-lg mb-2">
+                  <span class="w-1 h-7 bg-indigo-600 rounded-full inline-block"></span>
+                  Psychographics & Mindset
+                </h4>
+                <p id="personaPsych" class="text-slate-700 leading-relaxed">
+                  Highly protective of ARR metrics. Stressed by quarterly executive reviews where unexpected churn pops up. Deeply values proactive strategy but feels weighed down by reactive day-to-day crises.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="flex items-center gap-2 font-bold text-lg mb-2">
+                  <span class="w-1 h-7 bg-indigo-600 rounded-full inline-block"></span>
+                  Behaviors
+                </h4>
+                <p id="personaBehaviors" class="text-slate-700 leading-relaxed">
+                  Spends the first 2 hours of every morning reviewing high-value accounts. Constantly requests custom usage data pulls from data science teams to double-check structural health indicators.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="flex items-center gap-2 font-bold text-lg mb-2">
+                  <span class="w-1 h-7 bg-indigo-600 rounded-full inline-block"></span>
+                  Motivations
+                </h4>
+                <p id="personaMotivations" class="text-slate-700 leading-relaxed">
+                  Achieve net revenue retention (NRR) targets exceeding 115%. Build a highly efficient CS operational setup capable of handling a larger volume of accounts without doubling headcount.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="flex items-center gap-2 font-bold text-lg mb-2">
+                  <span class="w-1 h-7 bg-indigo-600 rounded-full inline-block"></span>
+                  Unmet Needs
+                </h4>
+                <p id="personaNeeds" class="text-slate-700 leading-relaxed">
+                  An early-warning indicator system that picks up on semantic anxiety and support ticket fatigue signals before traditional software usage drop-offs manifest.
+                </p>
+              </div>
+
+              <!-- Driver Interaction -->
+              <div class="mt-6 border soft-border rounded-xl p-5 bg-slate-50">
+                <h4 class="font-bold mb-4">Interactive: Select a Key PulseAI Driver for <span id="driverPersonaName">Sarah</span></h4>
+
+                <div class="flex flex-wrap gap-2 mb-4" id="driverButtons">
+                  <button class="driver-btn px-4 py-2 rounded-full border bg-white text-sm" data-driver="nrr">NRR Growth Optimization</button>
+                  <button class="driver-btn px-4 py-2 rounded-full border bg-white text-sm" data-driver="ops">Operational Scalability</button>
+                  <button class="driver-btn px-4 py-2 rounded-full border bg-white text-sm" data-driver="support">Proactive Support Overhaul</button>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 border soft-border min-h-[72px]">
+                  <p id="driverText" class="text-slate-700 italic">
+                    Click one of the key drivers above to see how PulseAI explicitly targets Sarah's adoption blockers.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    // ---------- CBA ----------
+    const BASE_ARR = 10000000;      // $10M ARR
+    const BASELINE_CHURN = 0.10;    // 10%
+    const WEEKS_PER_MONTH = 4.33;
+
+    const cbaEls = {
+      horizon: document.getElementById('horizon'),
+      churn: document.getElementById('churn'),
+      talent: document.getElementById('talent'),
+      horizonVal: document.getElementById('horizonVal'),
+      churnVal: document.getElementById('churnVal'),
+      talentVal: document.getElementById('talentVal'),
+      roiPct: document.getElementById('roiPct'),
+      benefitsTotal: document.getElementById('benefitsTotal'),
+      costsTotal: document.getElementById('costsTotal'),
+      netValue: document.getElementById('netValue'),
+      benefitArr: document.getElementById('benefitArr'),
+      benefitCs: document.getElementById('benefitCs'),
+      benefitUpsell: document.getElementById('benefitUpsell'),
+      costDev: document.getElementById('costDev'),
+      costLlm: document.getElementById('costLlm'),
+      costInfra: document.getElementById('costInfra'),
+      costMaint: document.getElementById('costMaint')
+    };
+
+    function fmtUSD(n) {
+      return '$' + Math.round(n).toLocaleString('en-US');
+    }
+
+    function updateCBA() {
+      const months = Number(cbaEls.horizon.value);
+      const churnReduction = Number(cbaEls.churn.value) / 100;
+      const monthlyTalent = Number(cbaEls.talent.value);
+
+      cbaEls.horizonVal.textContent = months;
+      cbaEls.churnVal.textContent = Number(cbaEls.churn.value);
+      cbaEls.talentVal.textContent = Number(monthlyTalent).toLocaleString('en-US');
+
+      // Benefits
+      const retainedARR = BASE_ARR * BASELINE_CHURN * churnReduction * (months / 12);
+      const csTimeSavings = 90000 * (months / 18);   // aligns with the illustrative example
+      const upsellRevenue = 60000 * (months / 18);
+
+      const totalBenefits = retainedARR + csTimeSavings + upsellRevenue;
+
+      // Costs
+      const devTalent = 120000 + (monthlyTalent * months); // allocated talent grows with horizon
+      const llmCalls = 35000 * (months / 18) * (1 + churnReduction * 0.25);
+      const infra = 18000 * (months / 18);
+      const maint = 12000 * (months / 18);
+
+      const totalCosts = devTalent + llmCalls + infra + maint;
+      const netValue = totalBenefits - totalCosts;
+      const roi = totalCosts > 0 ? Math.max(0, Math.round(((totalBenefits - totalCosts) / totalCosts) * 100)) : 0;
+
+      cbaEls.roiPct.textContent = roi + '%';
+      cbaEls.benefitsTotal.textContent = fmtUSD(totalBenefits);
+      cbaEls.costsTotal.textContent = fmtUSD(totalCosts);
+      cbaEls.netValue.textContent = fmtUSD(netValue);
+
+      cbaEls.benefitArr.textContent = fmtUSD(retainedARR);
+      cbaEls.benefitCs.textContent = fmtUSD(csTimeSavings);
+      cbaEls.benefitUpsell.textContent = fmtUSD(upsellRevenue);
+
+      cbaEls.costDev.textContent = fmtUSD(devTalent);
+      cbaEls.costLlm.textContent = fmtUSD(llmCalls);
+      cbaEls.costInfra.textContent = fmtUSD(infra);
+      cbaEls.costMaint.textContent = fmtUSD(maint);
+    }
+
+    ['input', 'change'].forEach(evt => {
+      cbaEls.horizon.addEventListener(evt, updateCBA);
+      cbaEls.churn.addEventListener(evt, updateCBA);
+      cbaEls.talent.addEventListener(evt, updateCBA);
+    });
+
+    updateCBA();
+
+    // ---------- Personas ----------
+    const personas = {
+      sarah: {
+        name: 'Sarah Jenkins',
+        title: 'VP of Customer Success',
+        age: '42',
+        company: '250 Employees',
+        industry: 'Enterprise B2B SaaS',
+        experience: '15+ Years in CS',
+        image: 'https://image.pollinations.ai/prompt/realistic%20professional%20portrait%20of%20Sarah%20Jenkins%2C%20VP%20of%20Customer%20Success%2C%20Indian%20woman%20in%20her%20early%2040s%2C%20business%20casual%20attire%2C%20modern%20SaaS%20office%2C%20soft%20natural%20lighting%2C%20photorealistic%2C%20high%20detail',
+        quote: '“We are constantly fighting fires instead of building relationships because our health scores lag behind actual customer sentiment.”',
+        psych: 'Highly protective of ARR metrics. Stressed by quarterly executive reviews where unexpected churn pops up. Deeply values proactive strategy but feels weighed down by reactive day-to-day crises.',
+        behaviors: 'Spends the first 2 hours of every morning reviewing high-value accounts. Constantly requests custom usage data pulls from data science teams to double-check structural health indicators.',
+        motivations: 'Achieve net revenue retention (NRR) targets exceeding 115%. Build a highly efficient CS operational setup capable of handling a larger volume of accounts without doubling headcount.',
+        needs: 'An early-warning indicator system that picks up on semantic anxiety and support ticket fatigue signals before traditional software usage drop-offs manifest.',
+        driverLabel: 'Sarah',
+        drivers: {
+          nrr: 'PulseAI helps Sarah protect and grow NRR by surfacing at-risk accounts early and giving her explainable action plans before renewal pressure peaks.',
+          ops: 'PulseAI reduces the operational burden by replacing manual account gathering with concise account summaries and role-specific recommendations.',
+          support: 'PulseAI connects support, billing, and usage signals into one health view so Sarah can act before customer frustration turns into churn.'
+        }
+      },
+      david: {
+        name: 'David Chen',
+        title: 'Head of Product',
+        age: '38',
+        company: '500 Employees',
+        industry: 'B2B SaaS Platform',
+        experience: '12 Years in Product',
+        image: 'https://image.pollinations.ai/prompt/realistic%20professional%20portrait%20of%20David%20Chen%2C%20Head%20of%20Product%2C%20Asian%20male%20in%20his%20late%2030s%2C%20smart%20casual%20attire%2C%20modern%20office%20setting%2C%20thoughtful%20expression%2C%20photorealistic%2C%20high%20detail',
+        quote: '“We need to know which product issues are affecting revenue, not just which bugs are loudest.”',
+        psych: 'Data-driven and prioritization-focused. Wants engineering effort aligned to revenue impact, but often lacks the customer context needed to defend roadmap tradeoffs.',
+        behaviors: 'Reviews usage trends, customer feedback, and escalations in weekly product meetings. Frequently asks CS for account-level evidence before committing resources.',
+        motivations: 'Prioritize roadmap investments with confidence. Improve adoption of key features and avoid shipping work that does not move customer outcomes.',
+        needs: 'A clear business-to-product signal that maps usage decline and support friction to roadmap urgency and account value.',
+        driverLabel: 'David',
+        drivers: {
+          nrr: 'PulseAI helps David quantify the revenue impact of product issues so he can prioritize roadmap decisions that protect ARR.',
+          ops: 'PulseAI reduces the noise by consolidating customer signals into a simple portfolio view for faster product triage.',
+          support: 'PulseAI reveals which support patterns are tied to product friction, improving root-cause visibility for product teams.'
+        }
+      },
+      elena: {
+        name: 'Elena Rostova',
+        title: 'Operations Director',
+        age: '45',
+        company: '400 Employees',
+        industry: 'Enterprise Technology',
+        experience: '18 Years in Operations',
+        image: 'https://image.pollinations.ai/prompt/realistic%20professional%20portrait%20of%20Elena%20Rostova%2C%20Operations%20Director%2C%20woman%20in%20her%20mid%2040s%2C%20business%20formal%20attire%2C%20modern%20enterprise%20workspace%2C%20confident%20expression%2C%20photorealistic%2C%20high%20detail',
+        quote: '“Operational efficiency means getting the right information to the right team without extra meetings and manual reporting.”',
+        psych: 'Process-oriented and efficiency-focused. Measures success through responsiveness, consistency, and reduced operational drag across teams.',
+        behaviors: 'Monitors team workloads, reporting cycles, and cross-functional bottlenecks. Seeks ways to streamline workflows and reduce duplicate effort.',
+        motivations: 'Scale the customer success motion without increasing overhead. Improve response times and make decision-making more consistent across teams.',
+        needs: 'A centralized system that removes reporting friction and standardizes how account risk is communicated.',
+        driverLabel: 'Elena',
+        drivers: {
+          nrr: 'PulseAI improves operational leverage by standardizing the way portfolio health is reported and acted on across teams.',
+          ops: 'PulseAI gives Elena the automation layer she needs to cut reporting time and improve cross-functional coordination.',
+          support: 'PulseAI reduces manual handoffs by tying support, billing, and usage into one explainable workflow.'
+        }
+      }
+    };
+
+    const personaTabs = document.querySelectorAll('.persona-tab');
+    const driverButtons = document.querySelectorAll('.driver-btn');
+
+    const personaEls = {
+      img: document.getElementById('personaImage'),
+      name: document.getElementById('personaName'),
+      title: document.getElementById('personaTitle'),
+      age: document.getElementById('personaAge'),
+      company: document.getElementById('personaCompany'),
+      industry: document.getElementById('personaIndustry'),
+      experience: document.getElementById('personaExperience'),
+      quote: document.getElementById('personaQuote'),
+      psych: document.getElementById('personaPsych'),
+      behaviors: document.getElementById('personaBehaviors'),
+      motivations: document.getElementById('personaMotivations'),
+      needs: document.getElementById('personaNeeds'),
+      driverPersonaName: document.getElementById('driverPersonaName'),
+      driverText: document.getElementById('driverText')
+    };
+
+    let currentPersona = 'sarah';
+
+    function setDriverState(active) {
+      driverButtons.forEach(btn => {
+        btn.classList.remove('driver-active');
+        if (btn.dataset.driver === active) btn.classList.add('driver-active');
+      });
+    }
+
+    function loadPersona(key) {
+      const p = personas[key];
+      currentPersona = key;
+
+      personaEls.img.src = p.image;
+      personaEls.img.alt = `AI-generated portrait of ${p.name}`;
+      personaEls.name.textContent = p.name;
+      personaEls.title.textContent = p.title;
+      personaEls.age.textContent = p.age;
+      personaEls.company.textContent = p.company;
+      personaEls.industry.textContent = p.industry;
+      personaEls.experience.textContent = p.experience;
+      personaEls.quote.textContent = p.quote;
+      personaEls.psych.textContent = p.psych;
+      personaEls.behaviors.textContent = p.behaviors;
+      personaEls.motivations.textContent = p.motivations;
+      personaEls.needs.textContent = p.needs;
+      personaEls.driverPersonaName.textContent = p.driverLabel;
+      personaEls.driverText.textContent = 'Click one of the key drivers above to see how PulseAI explicitly targets ' + p.driverLabel + '\'s adoption blockers.';
+
+      // reset drivers
+      setDriverState('');
+      // default active driver
+      setDriverText('nrr');
+    }
+
+    function setDriverText(driverKey) {
+      const p = personas[currentPersona];
+      personaEls.driverText.textContent = p.drivers[driverKey];
+      setDriverState(driverKey);
+    }
+
+    personaTabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        personaTabs.forEach(b => {
+          b.classList.remove('tab-active');
+          b.classList.add('bg-white', 'text-slate-700');
+          b.classList.remove('bg-indigo-600', 'text-white');
+        });
+        btn.classList.add('tab-active');
+        btn.classList.remove('bg-white', 'text-slate-700');
+        loadPersona(btn.dataset.persona);
+      });
+    });
+
+    driverButtons.forEach(btn => {
+      btn.addEventListener('click', () => setDriverText(btn.dataset.driver));
+    });
+
+    // init
+    loadPersona('sarah');
+    setDriverText('nrr');
+  </script>
+</body>
+</html>
