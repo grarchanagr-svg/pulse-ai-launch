@@ -235,9 +235,27 @@
                 </p>
               </div>
 
-              <!-- Driver Interaction -->
-              <div class="mt-6 border soft-border rounded-xl p-5 bg-slate-50">
-                <h4 class="font-bold mb-4">Interactive: Select a Key PulseAI Driver for <span id="driverPersonaName">Sarah</span></h4>
+              <!-- Tech Comfort & AI Sentiment -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                  <h4 class="font-bold text-slate-950 mb-2">Tech Comfort</h4>
+                  <p id="personaTech" class="text-sm text-slate-700">
+                    Comfortable with SaaS tools, dashboards, and workflow automation.
+                  </p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                  <h4 class="font-bold text-slate-950 mb-2">AI Sentiment</h4>
+                  <p id="personaAI" class="text-sm text-slate-700">
+                    Positive toward AI if outputs are explainable and tied to source data.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Driver Box -->
+              <div class="mt-2 border border-slate-200 rounded-xl p-5 bg-slate-50">
+                <h4 class="font-bold mb-4">
+                  Interactive: Select a Key PulseAI Driver for <span id="driverPersonaName">Sarah</span>
+                </h4>
 
                 <div class="flex flex-wrap gap-2 mb-4" id="driverButtons">
                   <button class="driver-btn px-4 py-2 rounded-full border bg-white text-sm" data-driver="nrr">NRR Growth Optimization</button>
@@ -245,7 +263,7 @@
                   <button class="driver-btn px-4 py-2 rounded-full border bg-white text-sm" data-driver="support">Proactive Support Overhaul</button>
                 </div>
 
-                <div class="bg-white rounded-lg p-4 border soft-border min-h-[72px]">
+                <div class="bg-white rounded-lg p-4 border border-slate-200 min-h-[72px]">
                   <p id="driverText" class="text-slate-700 italic">
                     Click one of the key drivers above to see how PulseAI explicitly targets Sarah's adoption blockers.
                   </p>
@@ -264,7 +282,6 @@
     // ---------- CBA ----------
     const BASE_ARR = 10000000;      // $10M ARR
     const BASELINE_CHURN = 0.10;    // 10%
-    const WEEKS_PER_MONTH = 4.33;
 
     const cbaEls = {
       horizon: document.getElementById('horizon'),
@@ -301,13 +318,13 @@
 
       // Benefits
       const retainedARR = BASE_ARR * BASELINE_CHURN * churnReduction * (months / 12);
-      const csTimeSavings = 90000 * (months / 18);   // aligns with the illustrative example
+      const csTimeSavings = 90000 * (months / 18);
       const upsellRevenue = 60000 * (months / 18);
 
       const totalBenefits = retainedARR + csTimeSavings + upsellRevenue;
 
       // Costs
-      const devTalent = 120000 + (monthlyTalent * months); // allocated talent grows with horizon
+      const devTalent = 120000 + (monthlyTalent * months);
       const llmCalls = 35000 * (months / 18) * (1 + churnReduction * 0.25);
       const infra = 18000 * (months / 18);
       const maint = 12000 * (months / 18);
@@ -354,6 +371,8 @@
         behaviors: 'Spends the first 2 hours of every morning reviewing high-value accounts. Constantly requests custom usage data pulls from data science teams to double-check structural health indicators.',
         motivations: 'Achieve net revenue retention (NRR) targets exceeding 115%. Build a highly efficient CS operational setup capable of handling a larger volume of accounts without doubling headcount.',
         needs: 'An early-warning indicator system that picks up on semantic anxiety and support ticket fatigue signals before traditional software usage drop-offs manifest.',
+        tech: 'Comfortable with SaaS tools, dashboards, and workflow automation.',
+        ai: 'Positive toward AI if outputs are explainable and tied to source data.',
         driverLabel: 'Sarah',
         drivers: {
           nrr: 'PulseAI helps Sarah protect and grow NRR by surfacing at-risk accounts early and giving her explainable action plans before renewal pressure peaks.',
@@ -374,6 +393,8 @@
         behaviors: 'Reviews usage trends, customer feedback, and escalations in weekly product meetings. Frequently asks CS for account-level evidence before committing resources.',
         motivations: 'Prioritize roadmap investments with confidence. Improve adoption of key features and avoid shipping work that does not move customer outcomes.',
         needs: 'A clear business-to-product signal that maps usage decline and support friction to roadmap urgency and account value.',
+        tech: 'Highly comfortable with product analytics, dashboards, and technical workflows.',
+        ai: 'Open to AI if it improves prioritization and explains the “why” behind recommendations.',
         driverLabel: 'David',
         drivers: {
           nrr: 'PulseAI helps David quantify the revenue impact of product issues so he can prioritize roadmap decisions that protect ARR.',
@@ -394,6 +415,8 @@
         behaviors: 'Monitors team workloads, reporting cycles, and cross-functional bottlenecks. Seeks ways to streamline workflows and reduce duplicate effort.',
         motivations: 'Scale the customer success motion without increasing overhead. Improve response times and make decision-making more consistent across teams.',
         needs: 'A centralized system that removes reporting friction and standardizes how account risk is communicated.',
+        tech: 'Moderately high comfort with business software and process automation.',
+        ai: 'Supportive of AI if it reduces operational burden and is easy to govern.',
         driverLabel: 'Elena',
         drivers: {
           nrr: 'PulseAI improves operational leverage by standardizing the way portfolio health is reported and acted on across teams.',
@@ -419,6 +442,8 @@
       behaviors: document.getElementById('personaBehaviors'),
       motivations: document.getElementById('personaMotivations'),
       needs: document.getElementById('personaNeeds'),
+      tech: document.getElementById('personaTech'),
+      ai: document.getElementById('personaAI'),
       driverPersonaName: document.getElementById('driverPersonaName'),
       driverText: document.getElementById('driverText')
     };
@@ -430,6 +455,12 @@
         btn.classList.remove('driver-active');
         if (btn.dataset.driver === active) btn.classList.add('driver-active');
       });
+    }
+
+    function setDriverText(driverKey) {
+      const p = personas[currentPersona];
+      personaEls.driverText.textContent = p.drivers[driverKey];
+      setDriverState(driverKey);
     }
 
     function loadPersona(key) {
@@ -449,27 +480,19 @@
       personaEls.behaviors.textContent = p.behaviors;
       personaEls.motivations.textContent = p.motivations;
       personaEls.needs.textContent = p.needs;
+      personaEls.tech.textContent = p.tech;
+      personaEls.ai.textContent = p.ai;
       personaEls.driverPersonaName.textContent = p.driverLabel;
-      personaEls.driverText.textContent = 'Click one of the key drivers above to see how PulseAI explicitly targets ' + p.driverLabel + '\'s adoption blockers.';
+      personaEls.driverText.textContent = `Click one of the key drivers above to see how PulseAI explicitly targets ${p.driverLabel}'s adoption blockers.`;
 
-      // reset drivers
-      setDriverState('');
-      // default active driver
       setDriverText('nrr');
-    }
-
-    function setDriverText(driverKey) {
-      const p = personas[currentPersona];
-      personaEls.driverText.textContent = p.drivers[driverKey];
-      setDriverState(driverKey);
     }
 
     personaTabs.forEach(btn => {
       btn.addEventListener('click', () => {
         personaTabs.forEach(b => {
-          b.classList.remove('tab-active');
+          b.classList.remove('tab-active', 'bg-indigo-600', 'text-white');
           b.classList.add('bg-white', 'text-slate-700');
-          b.classList.remove('bg-indigo-600', 'text-white');
         });
         btn.classList.add('tab-active');
         btn.classList.remove('bg-white', 'text-slate-700');
