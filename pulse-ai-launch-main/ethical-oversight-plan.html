@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulse AI – Ethical AI Oversight Plan</title>
+  <style>
+    :root{
+      --bg:#f6f8fc;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --accent:#1d4ed8;
+      --accent2:#0f766e;
+      --shadow:0 8px 24px rgba(15, 23, 42, .08);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:24px 18px 48px;
+    }
+    header{
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:#fff;
+      padding:28px 18px;
+    }
+    header .wrap{padding:0}
+    h1{
+      margin:0 0 6px;
+      font-size:2rem;
+      line-height:1.2;
+    }
+    .subtitle{
+      margin:0;
+      color:#dbeafe;
+      font-size:.98rem;
+    }
+    section{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+      margin:18px 0;
+    }
+    h2{
+      margin:0 0 12px;
+      font-size:1.35rem;
+      line-height:1.2;
+      color:#0f172a;
+    }
+    p{margin:0 0 12px}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin:12px 0 8px;
+      table-layout:fixed;
+    }
+    th, td{
+      border:1px solid var(--line);
+      padding:12px;
+      vertical-align:top;
+      text-align:left;
+      word-wrap:break-word;
+    }
+    th{
+      background:#f9fafb;
+      font-weight:700;
+      color:#111827;
+    }
+    td{white-space:pre-line}
+    .note{
+      color:var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Pulse AI – Ethical AI Oversight Plan</h1>
+      <p class="subtitle">IPL Neural Navigators | ICAIPM2026F | Pulse AI</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <p>Pulse AI grounds AI-generated insights in retrieved customer data instead of relying solely on LLM memory, reducing (though not eliminating) hallucinations. Since it processes CRM, support, usage, and billing data through third-party LLMs and generates health scores that influence business decisions, this plan identifies risks across retrieval, generation, and the deployment pipeline, while defining the governance and mitigations needed from pilot to production.</p>
+    </section>
+
+    <section>
+      <h2>AI Ethics Risks and Mitigation</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Risk Area</th>
+            <th>Key Risks</th>
+            <th>Governance &amp; Mitigation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bias &amp; Fairness</td>
+            <td>LLM may misinterpret customer sentiment due to differences in communication style, region, language, or ticket volume, leading to biased health scores.</td>
+            <td>Quarterly bias audits on diverse datasets
+Review retrieval coverage to avoid over-representing high-ticket accounts
+Require human review for low-confidence classifications document and regularly review health scoring logic and thresholds.</td>
+          </tr>
+          <tr>
+            <td>Transparency &amp; Explainability</td>
+            <td>AI-generated reports and health scores may be perceived as authoritative without sufficient evidence or explanation.</td>
+            <td>Provide source attribution for every key insight
+Label reports as AI-generated with data timestamp
+Maintain release-specific model documentation
+Expose the scoring criteria behind Healthy, At Risk, and Critical classifications.</td>
+          </tr>
+          <tr>
+            <td>Privacy &amp; Data Security</td>
+            <td>CRM notes, support tickets, and billing data may contain sensitive customer information that is stored and shared with external LLMs.</td>
+            <td>Redact or tokenise PII before indexing
+Use LLM providers with zero data retention agreements
+ Encrypt data in transit and at rest, define data retention and deletion policies.</td>
+          </tr>
+          <tr>
+            <td>Misuse &amp; Human Oversight</td>
+            <td>Users may over-trust AI recommendations, or malicious prompt content may influence model outputs.</td>
+            <td>Require human approval for Critical accounts and high-impact. Recommendations.
+Harden prompts and perform regular testing.</td>
+          </tr>
+          <tr>
+            <td>Governance &amp; Compliance</td>
+            <td>Changes to prompts, retrieval logic, or production deployment may introduce ethical, legal, or operational risks.</td>
+            <td>Establish cross-functional reviews for AI changes.
+Obtain legal approval before onboarding customer data.
+Require a production readiness checklist covering security controls.
+Perform quarterly governance audits and maintain an incident response process.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

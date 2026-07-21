@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PulseAI Market Segmentation Analysis</title>
+  <style>
+    :root{
+      --bg:#f7f9fc;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --accent:#1d4ed8;
+      --accent2:#0f766e;
+      --soft:#eef4ff;
+      --soft2:#ecfdf5;
+      --shadow:0 8px 24px rgba(15, 23, 42, .08);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Inter, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.55;
+    }
+    header{
+      background: linear-gradient(135deg, #0f172a, #1d4ed8);
+      color:#fff;
+      padding:48px 20px 36px;
+    }
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 20px;
+    }
+    h1,h2,h3{line-height:1.2; margin:0 0 12px}
+    h1{font-size:2rem}
+    header p{max-width:900px; margin:10px 0 0; color:#dbeafe}
+    main{padding:28px 0 48px}
+    section{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+      margin-bottom:18px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:16px;
+    }
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:16px;
+    }
+    .pill{
+      display:inline-block;
+      background:var(--soft);
+      color:var(--accent);
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:.88rem;
+      font-weight:600;
+      margin-bottom:10px;
+    }
+    .pill.green{background:var(--soft2); color:var(--accent2)}
+    .muted{color:var(--muted)}
+    .card{
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px;
+      background:#fff;
+    }
+    .callout{
+      border-left:4px solid var(--accent);
+      background:#f8fbff;
+      padding:16px 16px 16px 18px;
+      border-radius:12px;
+      margin-top:12px;
+    }
+    ul{margin:10px 0 0 18px}
+    li{margin:6px 0}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      overflow:hidden;
+      border-radius:12px;
+    }
+    th, td{
+      border:1px solid var(--line);
+      padding:12px;
+      vertical-align:top;
+      text-align:left;
+    }
+    th{
+      background:#f9fafb;
+      font-weight:700;
+    }
+    .small{font-size:.95rem}
+    .section-title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:10px;
+    }
+    .badge{
+      font-size:.78rem;
+      font-weight:700;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      color:#0f172a;
+      background:#e2e8f0;
+      padding:5px 10px;
+      border-radius:999px;
+    }
+
+    /* Buttons */
+    .button-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-top:14px;
+    }
+    .btn{
+      appearance:none;
+      border:none;
+      background:var(--accent);
+      color:#fff;
+      padding:12px 16px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:700;
+      box-shadow:0 6px 14px rgba(29, 78, 216, .18);
+      transition:transform .12s ease, opacity .12s ease, background .12s ease;
+    }
+    .btn:hover{transform:translateY(-1px); opacity:.95}
+    .btn.secondary{background:var(--accent2)}
+    .btn.ghost{
+      background:#eef2ff;
+      color:#1e3a8a;
+      box-shadow:none;
+      border:1px solid #dbeafe;
+    }
+
+    /* Modal / notepad */
+    .modal-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(15, 23, 42, .55);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:9999;
+    }
+    .modal{
+      width:min(980px, 100%);
+      max-height:90vh;
+      background:#fdfdfd;
+      border-radius:18px;
+      box-shadow:0 24px 60px rgba(0,0,0,.25);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      border:1px solid #dbe3f0;
+    }
+    .modal-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 16px;
+      background:linear-gradient(135deg, #eff6ff, #f8fafc);
+      border-bottom:1px solid var(--line);
+    }
+    .modal-header h3{margin:0; font-size:1.05rem}
+    .close-btn{
+      border:none;
+      background:#e5e7eb;
+      color:#111827;
+      border-radius:999px;
+      width:34px;
+      height:34px;
+      font-size:18px;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .modal-body{
+      padding:16px;
+      overflow:auto;
+      background:#fff;
+    }
+    .notepad{
+      background:#fff;
+      border:1px solid #d1d5db;
+      border-radius:14px;
+      padding:14px;
+      min-height:55vh;
+      white-space:pre-wrap;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size:.92rem;
+      line-height:1.55;
+      color:#111827;
+      background-image: linear-gradient(to bottom, rgba(59,130,246,.05), rgba(59,130,246,.05));
+    }
+
+    footer{
+      padding:20px 0 40px;
+      color:var(--muted);
+      text-align:center;
+      font-size:.92rem;
+    }
+    @media (max-width: 900px){
+      .grid,.grid-3{grid-template-columns:1fr}
+      h1{font-size:1.7rem}
+      .modal{max-height:92vh}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <span class="badge" style="background:#dbeafe;color:#1e3a8a;">PulseAI Analysis</span>
+      <h1>Market Segmentation & Persona Insights</h1>
+      <p>
+        Structured summary of the synthetic survey analysis used to identify customer segments,
+        validate market needs, and refine the go-to-market strategy for PulseAI.
+      </p>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <section>
+      <div class="section-title">
+        <h2>Reference Materials</h2>
+        <span class="badge">2 attached text prompts</span>
+      </div>
+
+      <p class="small muted">
+        Use the buttons below to open the attached text in a notepad-style popup.
+      </p>
+
+      <div class="button-row">
+        <button class="btn" onclick="openNote('analysisPrompt')">Open Analysis Prompt</button>
+        <button class="btn secondary" onclick="openNote('datasetPrompt')">Open Synthetic Dataset Prompt</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>Executive Overview</h2>
+        <span class="badge">What this analysis shows</span>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <span class="pill">Market Problem</span>
+          <p class="small">
+            PulseAI addresses fragmented customer-health signals across CRM, support, product usage,
+            billing, and other systems. The core need is not just churn prediction, but a decision layer
+            that explains risk and recommends next steps.
+          </p>
+        </div>
+        <div class="card">
+          <span class="pill green">Main Output</span>
+          <p class="small">
+            The analysis converges on <strong>3 clusters</strong>: enterprise strategists, mid-market integrators,
+            and high-urgency operators. The strongest beachhead is the <strong>mid-market integrator</strong> segment.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>Summary of Key Insights</h2>
+        <span class="badge">Patterns and unmet needs</span>
+      </div>
+
+      <div class="grid-3">
+        <div class="card">
+          <h3>Clear segmentation</h3>
+          <ul class="small">
+            <li>Cluster 1: high-scale, high-budget, high-trust needs</li>
+            <li>Cluster 2: mid-scale, workflow/integration driven</li>
+            <li>Cluster 3: lean teams needing immediate action</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Different buying logic</h3>
+          <ul class="small">
+            <li>Strategists buy for accuracy and source grounding</li>
+            <li>Integrators buy for connectivity and unified visibility</li>
+            <li>Fixers buy for speed and automation</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <h3>Unmet needs</h3>
+          <ul class="small">
+            <li>Unified customer-health view across tools</li>
+            <li>Explainable AI for risk causes</li>
+            <li>Better cross-functional coordination</li>
+            <li>Faster alerts and immediate actionability</li>
+          </ul>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Cluster</th>
+            <th>Primary Need</th>
+            <th>Main Pain Point</th>
+            <th>Implication</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Cluster 1 – Strategists</strong></td>
+            <td>Deep intelligence, reliable explanations</td>
+            <td>Unpredictable revenue drops, fragmented data</td>
+            <td>High-value segment, but trust-building is essential</td>
+          </tr>
+          <tr>
+            <td><strong>Cluster 2 – Integrators</strong></td>
+            <td>Unified visibility and seamless integration</td>
+            <td>Data silos, cross-department gaps</td>
+            <td>Best beachhead for adoption and proof of value</td>
+          </tr>
+          <tr>
+            <td><strong>Cluster 3 – Fixers</strong></td>
+            <td>Immediate alerts and quick remediation</td>
+            <td>Manual tracking, delayed signals</td>
+            <td>Fast to sell, but higher churn and lower long-term value</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>Brief Analysis: How This Refines the Persona & Market Opportunity</h2>
+        <span class="badge">Validation and refinement</span>
+      </div>
+
+      <div class="callout">
+        <p class="small">
+          The findings validate that PulseAI is not just a “churn dashboard.” It is a decision layer for customer-health
+          intelligence. The analysis also refines the market view by showing that the best entry point is not the largest
+          enterprise accounts first, but the mid-market teams that already feel the pain of disconnected systems and can
+          act on integration-led value quickly.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h2>Recommended Market Entry Strategy</h2>
+        <span class="badge">Business takeaway</span>
+      </div>
+
+      <ol class="small">
+        <li><strong>Primary beachhead:</strong> Cluster 2 — Mid-market integrators.</li>
+        <li><strong>Product emphasis:</strong> Seamless connectors, unified data, and workflow alignment.</li>
+        <li><strong>Proof strategy:</strong> Build case studies around reducing silo friction and improving visibility.</li>
+        <li><strong>Expansion path:</strong> Use mid-market wins to unlock enterprise trust and move upmarket.</li>
+      </ol>
+    </section>
+
+  </main>
+
+  <footer>
+    PulseAI Market Segmentation Analysis • HTML Summary
+  </footer>
+
+  <!-- Modal / Notepad -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeNote(event)">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="event.stopPropagation()">
+      <div class="modal-header">
+        <h3 id="modalTitle">Reference Text</h3>
+        <button class="close-btn" aria-label="Close" onclick="closeNote()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="notepad" id="noteContent"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const contentMap = {
+      analysisPrompt: `I am a product manager looking to perform data analysis, specifically cluster analysis with k-means clustering in a no-code environment only using generative AI (no Excel, Python or any other tools).
+
+The objective is to identify customer segments for my market entry strategy for <AI Product Idea>
+
+The dataset is from a survey conducted with many respondents.
+
+The dataset has the following columns and their corresponding statistical structure <DATASET_INFO>
+
+Act as a veteran data analyst with 20 years experience.
+
+Your task is to perform the data analysis using each step outlined in <Analysis_Steps>, one step at a time.
+You will not proceed to the next step until I say so.
+We are going to use a generative AI tool for this exercise. So, do not generate any code or use any other tool.
+
+Let me know when you are ready to start.
+
+<AI Product Idea>
+Enterprise B2B SaaS companies spend 3–9 months winning a customer, sign multi-year contracts worth hundreds of thousands of dollars, then lose them because nobody noticed the warning signs in time. The data was always there. The problem is that it lived in different places, and there is a lack of a unified, intelligent system that can interpret fragmented signals and tell what to do before it is too late.
+Pulse AI is a Generative AI-powered Customer Health Intelligence platform that acts as an intelligent decision layer over existing enterprise systems.
+</AI Product Idea>
+
+<DATASET_INFO>
+Case - Row ID (this can be excluded for analysis if not needed)
+EMPS - Number of Employees (numerical range)
+TURN - Annual Turnover/Revenue (INR)
+MSLF - Avg. Monthly Spend in Lawyer Fees (INR)
+MDVL - Monthly Document Volume (number)
+REAS - importance of 'Summary Accuracy' (Float between 1.0 for low and 7.0 for high)
+RTAT - Importance of 'Response Turnaround Time' (Float between 1.0 for low and 7.0 for high)
+RISK - Importance of 'Flagging High Risk Items' (Float between 1.0 for low and 7.0 for high)
+EINT - Importance of Ease of Integration (Float between 1.0 for low and 7.0 for high)
+TRST - Importance of Trust in AI (Float between 1.0 for low and 7.0 for high)
+URGY - Importance of 'Urgency of use case' (Float between 1.0 for low and 7.0 for high)
+GOAL - Primary Jobs-to-be-done (Text)
+PAIN - Most critical Pain when trying to achieve the goal (Text)
+</DATASET_INFO>
+
+<Analysis_Steps>
+Step-1: Input Confirmation & Dataset Preparation
+Step-2: Select Variables for Clustering
+Step-3: Normalize the Data
+Step-4: Choose Number of Clusters (k)
+Step-5: Perform K-Means Clustering (via GenAI)
+Step-6: Profile Each Cluster
+Step-7: Identify Target Segment & Entry Strategy
+Step-8: Visualize and Present
+</Analysis_Steps>`,
+
+      datasetPrompt: `### Context & Objective
+You are a senior market-researcher using Generative AI to create a synthetic dataset on my <PulseAI> using the survey questions & response options listed in <SURVEY_QNA>.
+Generate <NUM_ROWS> unique survey responses, evenly distributed across these personas <Persona-1>, <Persona-2>, <Persona-3> by following the exact steps below.
+
+### Style
+• Business-realistic, varied but concise
+• Avoid contradictions with persona facts
+
+### Audience
+A product analyst who will perform <Analysis> with this generated dataset to identify customer segments for a market entry strategy.
+
+### Response
+Provide the response as a valid CSV file with header row + <NUM_ROWS> with one row per respondent.
+Start with a RowID (Case) as the first column.
+The other column headers must be the 4 letter code corresponding to the survey question.
+
+### Steps
+1. Treat each persona as a “mega-seed” and imagine many individuals who closely resemble them.
+2. Answer every survey question in <SURVEY_QNA> for each synthetic respondent.
+3. Choose any one response for each survey question from the response options provided for each survey question in <SURVEY_QNA>
+3. Obey sampling constraints in <SAMPLING_CONSTRAINTS>
+
+### Input Variables
+
+<NUM_ROWS>
+200
+</NUM_ROWS>
+
+<AI_Product_Idea>
+Enterprise B2B SaaS companies spend 3–9 months winning a customer, sign multi-year contracts worth hundreds of thousands of dollars, then lose them because nobody noticed the warning signs in time. The data was always there. The problem is that it lived in different places, and there is a lack of a unified, intelligent system that can interpret fragmented signals and tell what to do before it is too late.
+Pulse AI is a Generative AI-powered Customer Health Intelligence platform that acts as an intelligent decision layer over existing enterprise systems.
+</AI_Product_Idea>
+
+<Analysis>
+Customer segmentation with cluster-analysis.
+</Analysis>
+
+<Persona-1>
+CS-Strategy Chitra
+Industry & Role: B2B SaaS, VP of Customer Success.
+Company Profile: 35-50 employees; INR 35 crore to 50 crore annual turnover.
+</Persona-1>
+
+<Persona-2>
+Product-Pulse Pranav
+Industry & Role: B2B SaaS, Head of Product.
+Company Profile: 20-35 employees; INR 15 crore to 35 crore annual turnover.
+</Persona-2>
+
+<Persona-3>
+Ops-Optimization Omkar
+Industry & Role: B2B SaaS, Operations Director.
+Company Profile: 10-20 employees; INR 5 crore to 15 crore annual turnover.
+</Persona-3>
+
+<SURVEY_QNA>
+Q1. What is your company’s number of employees?
+4 Letter Code: EMPS
+Response Options: “10–25”, “26–50”, “51–75”, “76–100”
+
+Q2. What is your company’s annual turnover?
+4 Letter Code: TURN
+Response Options: “₹2–10 Cr”, “₹11–25 Cr”, “₹26–50 Cr”
+
+Q3. What is your average monthly spend on external apps that give you information on the Customers decline or switching to competitetors (INR)?
+4 Letter Code: MSLF
+Response Option: Sampled between ₹100000 to ₹200000
+
+Q4. How many PulseAI accounts do you process monthly?
+4 Letter Code: MDVL
+Response Option: Sampled between 100 to 200
+
+Q5. “The AI summary must clearly explain why an account is at risk using customer health signals from multiple systems.”
+4 Letter Code: REAS
+Response: Sampled on a Likert Scale between 1 to 7 with floating-point values (rounded to two decimal places).
+
+Q6. “Receiving the customer health summary quickly is important to my workflow.”
+4 Letter Code: RTAT
+Response: Sampled on a Likert Scale between 1 to 7 with floating-point values (rounded to two decimal places).
+
+Q7. “Automatically identifying high-risk accounts based on usage, support, billing, and feedback signals is important.”
+4 Letter Code: RISK
+Response: Sampled on a Likert Scale between 1 to 7 with floating-point values (rounded to two decimal places).
+
+Q8. “The tool’s ability to integrate seamlessly into existing systems and workflows matters to me.”
+4 Letter Code: EINT
+Response: Sampled on a Likert Scale between 1 to 7 with floating-point values (rounded to two decimal places).
+
+Q9. “I need to trust that the AI produces reliable, accurate, and source-grounded customer insights.”
+4 Letter Code: TRST
+Response: Sampled on a Likert Scale between 1 to 7 with floating-point values (rounded to two decimal places).
+
+Q10. “It’s important that I can use the tool immediately when a renewal or churn risk is urgent.”
+4 Letter Code: URGY
+Response: Sampled on a Likert Scale between 1 to 7 with floating-point values (rounded to two decimal places).
+
+Q11. What is your primary goal when using an PulseAI tool?
+4 Letter Code: GOAL
+Response Options:
+Unify customer signals
+Predict churn early
+Automate risk alerts
+Explain account risk clearly
+Empower customer success teams
+Speed up risk mitigation
+Optimize retention spend
+Bridge cross-departmental data gaps
+Deliver source-grounded insights
+Enable immediate, urgent action
+Others.
+
+Q12. Describe the biggest Customer Churn pain point you face today.
+4 Letter Code: PAIN
+Response Options:
+Data Silos
+Reactive Interventions
+Alert Fatigue
+Lack of Root-Cause Analysis
+Delayed Signals
+Cross-Department Communication Gaps
+Manual Tracking Overhead
+Inconsistent Playbooks
+Unpredictable Revenue Drops
+Onboarding Friction Hidden
+Others.
+
+<SAMPLING_CONSTRAINTS>
+- Generate numerical values using a normal-like distribution (not uniform) with medium variation and centered within the given range.
+- Avoid unrealistic outliers. Maintain realism as if these were customer ratings.
+- Ensure that all values for Likert Scale responses are valid floating-point numbers with 2 decimal precision.
+- Prefix each survey response record
+
+Before you generate the synthetic data, if you don't have any questions, create 5 rows as a test before the final run.`
+    };
+
+    function openNote(key){
+      const titleMap = {
+        analysisPrompt: 'Analysis Prompt',
+        datasetPrompt: 'Synthetic Dataset Prompt'
+      };
+      document.getElementById('modalTitle').textContent = titleMap[key] || 'Reference Text';
+      document.getElementById('noteContent').textContent = contentMap[key] || 'No content found.';
+      document.getElementById('modalOverlay').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeNote(evt){
+      // If called by clicking overlay, close; if called by button, close as well
+      if (evt && evt.target && evt.target.id !== 'modalOverlay') return;
+      document.getElementById('modalOverlay').style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape'){
+        closeNote();
+      }
+    });
+  </script>
+</body>
+</html>

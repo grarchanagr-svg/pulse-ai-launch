@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Desirability, Viability, Feasibility</title>
+  <style>
+    :root{
+      --bg:#f7f9fc;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#e5e7eb;
+      --accent:#1d4ed8;
+      --shadow:0 8px 24px rgba(15, 23, 42, .08);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+    }
+    header{
+      background:linear-gradient(135deg,#0f172a,#1d4ed8);
+      color:#fff;
+      padding:28px 18px;
+    }
+    .wrap{
+      max-width:1000px;
+      margin:0 auto;
+      padding:0 18px;
+    }
+    h1{
+      margin:0;
+      font-size:2rem;
+      line-height:1.2;
+    }
+    main{
+      padding:24px 0 40px;
+    }
+    section{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:22px;
+      margin:18px 0;
+    }
+    h2{
+      margin:0 0 12px;
+      font-size:1.5rem;
+      line-height:1.2;
+      color:#0f172a;
+    }
+    h3{
+      margin:16px 0 10px;
+      font-size:1.05rem;
+      color:#0f172a;
+    }
+    p{margin:0 0 12px}
+    ul{
+      margin:10px 0 0 22px;
+      padding:0;
+    }
+    li{
+      margin:8px 0;
+    }
+    .page-label{
+      color:var(--muted);
+      font-size:.92rem;
+      margin-bottom:8px;
+    }
+    .content-block{
+      white-space:pre-line;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Feasibility Experimentation Plan</h1>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2>1. Desirability</h2>
+    </section>
+    <section>
+     <h3>Critical Assumption</h3>
+      <p class="content-block">Customer-facing teams will trust AI recommendations enough to change their
+daily workflow and make customer decisions based on them.</p>
+
+      <h3>Why this is critical</h3>
+      <p class="content-block">The briefing emphasizes that Pulse AI goes beyond a simple red/yellow/green health score by 
+explaining what happened, why it happened, and what to do next. However, Customer 
+Success Managers and Sales Managers remain accountable for renewals and revenue, so they
+may hesitate to rely on AI unless its reasoning is transparent.</p>
+
+      <h3>Validation Metric</h3>
+      <ul>
+        <li>AI recommendation acceptance rate</li>
+        <li>Weekly active users</li>
+        <li>Percentage of AI-generated actions executed</li>
+        <li>User trust/NPS for AI insights</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>2. Viability</h2>
+    </section>
+
+    <section>
+        <h3>Critical Assumption</h3>
+      <p class="content-block">Detecting customer health risks earlier will create measurable business value
+by reducing churn and increasing expansion revenue.</p>
+
+      <h3>Why this is critical</h3>
+      <p class="content-block">Pulse AI's value proposition is built on helping organizations reduce churn, improve retention, 
+and accelerate revenue growth. If earlier insights don't translate into measurable business 
+outcomes, customers may struggle to justify the investment.</p>
+
+      <h3>Validation Metric</h3>
+      <ul>
+        <li>Churn reduction (%)</li>
+        <li>Renewal rate improvement</li>
+        <li>Expansion revenue generated</li>
+        <li>ARR protected</li>
+        <li>Time to intervention</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. Feasibility</h2>
+    </section>
+
+    <section>
+      <h3>Critical Assumption</h3>
+      <p class="content-block">Enterprise customer data from CRM, billing, support, product analytics, and 
+monitoring tools can be integrated into a single, reliable customer health 
+model.</p>
+
+      <h3>Why this is critical</h3>
+      <p class="content-block">The product's core promise is to unify fragmented customer signals into one explained health 
+view. That promise depends on reliable integrations, consistent data quality, and accurate 
+identity resolution across systems.</p>
+
+      <h3>Validation Metric</h3>
+      <ul>
+        <li>Integration success rate</li>
+        <li>Percentage of customer records successfully unified</li>
+        <li>AI insight accuracy</li>
+        <li>Data freshness</li>
+        <li>Source coverage across connected systems</li>
+      </ul>
+    </section>
+  </main>
+</body>
+</html>
