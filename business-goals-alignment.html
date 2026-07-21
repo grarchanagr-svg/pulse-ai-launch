@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulse AI – Business Goals & Product Objectives Alignment</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+    .section-card { box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.06); }
+    .soft-border { border: 1px solid #dbe4f0; }
+    .tab-active { background: #4f46e5 !important; color: #fff !important; border-color: #4f46e5 !important; }
+    .driver-active { background: #eef2ff !important; border-color: #c7d2fe !important; color: #3730a3 !important; }
+    table { border-collapse: collapse; }
+  </style>
+</head>
+<body class="text-slate-900 antialiased">
+
+  <main class="max-w-7xl mx-auto px-4 py-8 md:py-10 space-y-10">
+
+<section class="space-y-5" id="business-goals">
+<div class="bg-white rounded-2xl p-5 md:p-6 section-card soft-border space-y-7">
+        <!-- Business Goals -->
+        <div>
+          <div class="mb-4">
+            <h3 class="text-xl font-bold text-slate-950">1. Business Goals</h3>
+          </div>
+
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="min-w-full text-left">
+              <thead class="bg-slate-800 text-white">
+                <tr>
+                  <th class="px-4 py-3 font-semibold">Business Goal</th>
+                  <th class="px-4 py-3 font-semibold">Why It Matters</th>
+                  <th class="px-4 py-3 font-semibold">North-Star Metric</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white">
+                <tr class="border-t border-slate-200 align-top">
+                  <td class="px-4 py-4 font-semibold">1. Improve Customer Retention</td>
+                  <td class="px-4 py-4 text-slate-700">
+                    Renewal risk is currently caught too late to act on. Detecting it earlier protects ARR from churning.
+                  </td>
+                  <td class="px-4 py-4 font-medium text-slate-900">NRR: 105% → 115%</td>
+                </tr>
+                <tr class="border-t border-slate-200 align-top">
+                  <td class="px-4 py-4 font-semibold">2. Improve Operating Margin</td>
+                  <td class="px-4 py-4 text-slate-700">
+                    CSMs spend ~5 min/account on manual cross-tool triage. Automating that triage reclaims capacity without adding headcount.
+                  </td>
+                  <td class="px-4 py-4 font-medium text-slate-900">Cost-to-Serve per Account</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Roadmap KPIs -->
+        <div class="rounded-xl bg-slate-50 border border-slate-200 p-5">
+          <h3 class="text-lg font-bold text-slate-950 mb-3">Product Roadmap KPIs Roll Up to Business Goals</h3>
+
+          <div class="space-y-4 text-slate-800">
+            <div>
+              <p class="font-semibold">Business Goal 1: Improve Customer Retention (North-Star: NRR 105% → 115%)</p>
+              <ul class="list-disc pl-6 mt-2 space-y-1">
+                <li>Gross Revenue Retention (GRR)</li>
+                <li>Customer Lifetime Value (CLTV)</li>
+                <li>ARR at Risk / ARR Protected</li>
+              </ul>
+            </div>
+
+            <div>
+              <p class="font-semibold">Business Goal 2: Improve Operating Margin (North-Star: Cost-to-Serve per Account)</p>
+              <ul class="list-disc pl-6 mt-2 space-y-1">
+                <li>CSM: Account Ratio (capacity/efficiency)</li>
+                <li>CSAT / Time-to-Resolution (quality proxy)</li>
+                <li>Engineering ROI</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Objectives -->
+        <div>
+          <div class="mb-4">
+            <h3 class="text-xl font-bold text-slate-950">2. Product Objectives</h3>
+          </div>
+
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="min-w-full text-left">
+              <thead class="bg-slate-800 text-white">
+                <tr>
+                  <th class="px-4 py-3 font-semibold">Product Objective</th>
+                  <th class="px-4 py-3 font-semibold">Supports Goal</th>
+                  <th class="px-4 py-3 font-semibold">Target</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white">
+                <tr class="border-t border-slate-200 align-top">
+                  <td class="px-4 py-4">Detect churn risk earlier</td>
+                  <td class="px-4 py-4">Retention</td>
+                  <td class="px-4 py-4 text-slate-700">
+                    Surface newly at-risk accounts within each weekly digest cycle instead of only at renewal, RAG-grounded and source-cited, not a predictive forecast
+                  </td>
+                </tr>
+                <tr class="border-t border-slate-200 align-top">
+                  <td class="px-4 py-4">Cut manual CSM triage time</td>
+                  <td class="px-4 py-4">Margin</td>
+                  <td class="px-4 py-4 text-slate-700">
+                    Reduce triage to &lt;2 min per account (from ~20 min)
+                  </td>
+                </tr>
+                <tr class="border-t border-slate-200 align-top">
+                  <td class="px-4 py-4">Tie the engineering effort to the revenue impact</td>
+                  <td class="px-4 py-4">Retention + Margin</td>
+                  <td class="px-4 py-4 text-slate-700">
+                    Ground roadmap items in a structured, cited, portfolio-wide demand signal instead of ad hoc/anecdotal requests
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Key Initiatives -->
+        <div>
+          <div class="mb-4">
+            <h3 class="text-xl font-bold text-slate-950">3. Key Initiatives</h3>
+          </div>
+
+          <div class="overflow-x-auto rounded-xl border border-slate-200">
+            <table class="min-w-full text-left">
+              <thead class="bg-slate-800 text-white">
+                <tr>
+                  <th class="px-4 py-3 font-semibold">Initiative</th>
+                  <th class="px-4 py-3 font-semibold">Objective Served</th>
+                  <th class="px-4 py-3 font-semibold">What It Does</th>
+                  <th class="px-4 py-3 font-semibold">Standard KPI(s) Fed</th>
+                  <th class="px-4 py-3 font-semibold">Status</th>
+                </tr>
+              </thead>
+              <tbody class="bg-white">
+                <tr class="border-t border-slate-200 align-top">
+                  <td class="px-4 py-4 font-medium">Generative AI Explainability</td>
+                  <td class="px-4 py-4">Cut CSM triage time</td>
+                  <td class="px-4 py-4 text-slate-700">
+                    AI-powered RAG Health Explainer with source citations (Langflow + AstraDB + Streamlit); plus an AI-generated Portfolio Summary across all tracked accounts. Production hardening in progress: hosted backend, connector-based data ingestion, audit trail, and role-based access
+                  </td>
+                  <td class="px-4 py-4 text-slate-700">
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li>Net Revenue Retention (NRR)</li>
+                      <li>Gross Revenue Retention (GRR)</li>
+                      <li>Cost-to-Serve per Account</li>
+                      <li>CSM: Account Ratio</li>
+                      <li>CSAT / Time-to-Resolution</li>
+                    </ul>
+                  </td>
+                  <td class="px-4 py-4 font-medium">In progress</td>
+                </tr>
+
+                <tr class="border-t border-slate-200 align-top">
+                  <td class="px-4 py-4 font-medium">Self-Service Generative Insights</td>
+                  <td class="px-4 py-4">Broaden self-serve access + earlier at-risk visibility</td>
+                  <td class="px-4 py-4 text-slate-700">
+                    Conversational Account Q&amp;A using the existing RAG pipeline, for any stakeholder; plus an automated weekly Portfolio Digest with trend comparison — delta detection highlighting newly at-risk accounts and customer wins, historical summaries retained for week-over-week comparison, and role-based Email/Slack delivery
+                  </td>
+                  <td class="px-4 py-4 text-slate-700">
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li>Net Revenue Retention (NRR) / ARR at Risk / ARR Protected</li>
+                      <li>CSM: Account Ratio (capacity/efficiency)</li>
+                      <li>CSAT / Time-to-Resolution</li>
+                    </ul>
+                  </td>
+                  <td class="px-4 py-4 font-medium">Planned</td>
+                </tr>
+
+                <tr class="border-t border-slate-200 align-top">
+                  <td class="px-4 py-4 font-medium">Voice of Customer (VoC) Intelligence</td>
+                  <td class="px-4 py-4">Tie effort to revenue</td>
+                  <td class="px-4 py-4 text-slate-700">
+                    AI-driven Voice of Customer (VoC) Synthesis across CRM notes and support tickets — theme, sentiment, and feature-request clustering; executive VoC digest for Product roadmap planning, with every recommendation linked to supporting customer evidence
+                  </td>
+                  <td class="px-4 py-4 text-slate-700">
+                    <ul class="list-disc pl-5 space-y-1">
+                      <li>Gross Revenue Retention (GRR)</li>
+                      <li>Customer Lifetime Value (CLTV)</li>
+                      <li>Engineering ROI</li>
+                    </ul>
+                  </td>
+                  <td class="px-4 py-4 font-medium">Planned</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

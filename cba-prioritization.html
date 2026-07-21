@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulse AI – Cost-Benefit Analysis & Prioritization</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+    .section-card { box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.06); }
+    .soft-border { border: 1px solid #dbe4f0; }
+    .tab-active { background: #4f46e5 !important; color: #fff !important; border-color: #4f46e5 !important; }
+    .driver-active { background: #eef2ff !important; border-color: #c7d2fe !important; color: #3730a3 !important; }
+    table { border-collapse: collapse; }
+  </style>
+</head>
+<body class="text-slate-900 antialiased">
+
+  <main class="max-w-7xl mx-auto px-4 py-8 md:py-10 space-y-10">
+
+<section class="space-y-5" id="cba-prioritization">
+<p class="text-slate-600 max-w-5xl">
+        Adjust the controls below to dynamically recalculate the financial projections for PulseAI.
+        Baseline assumptions: <span class="font-semibold">$10M ARR SaaS</span>, <span class="font-semibold">10% baseline churn</span>.
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <!-- Controls -->
+        <div class="bg-white rounded-2xl p-6 section-card soft-border">
+          <h3 class="text-lg font-bold mb-5">Interactive Controls</h3>
+
+          <div class="space-y-7">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label for="horizon" class="font-medium text-slate-800">Time Horizon: months</label>
+                <span id="horizonVal" class="font-bold text-indigo-600">18</span>
+              </div>
+              <input id="horizon" type="range" min="6" max="18" value="18" step="1" class="w-full accent-indigo-600" />
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label for="churn" class="font-medium text-slate-800">Target Annual Churn Reduction: %</label>
+                <span id="churnVal" class="font-bold text-indigo-600">25</span>
+              </div>
+              <input id="churn" type="range" min="10" max="35" value="25" step="1" class="w-full accent-indigo-600" />
+            </div>
+
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label for="talent" class="font-medium text-slate-800">Est. Monthly Engineering/Talent Cost: $</label>
+                <span id="talentVal" class="font-bold text-indigo-600">13,000</span>
+              </div>
+              <input id="talent" type="range" min="5000" max="25000" value="13000" step="500" class="w-full accent-indigo-600" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Output -->
+        <div class="bg-emerald-50 rounded-2xl p-6 section-card border border-emerald-200">
+          <h3 class="text-lg font-bold text-center mb-6">Projected Financial Health</h3>
+
+          <div class="text-center">
+            <div id="roiPct" class="text-5xl md:text-6xl font-extrabold text-emerald-600">76%</div>
+            <div class="mt-2 text-slate-700 font-semibold">Estimated Return on Investment (ROI)</div>
+          </div>
+
+          <div class="mt-8 pt-5 border-t border-emerald-200 space-y-2 text-sm md:text-base">
+            <div class="flex items-center justify-between">
+              <span>Total Benefits:</span>
+              <span id="benefitsTotal" class="font-semibold text-slate-900">$524,998</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span>Total Project Costs:</span>
+              <span id="costsTotal" class="font-semibold text-red-600">$299,000</span>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-emerald-200">
+              <span class="font-bold text-slate-900">Net Projected Value:</span>
+              <span id="netValue" class="font-extrabold text-slate-900">$225,999</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Breakdown -->
+      <div class="bg-white rounded-2xl p-6 section-card soft-border">
+        <h3 class="text-lg font-bold mb-6">Calculated Line Items Breakdowns</h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div>
+            <h4 class="font-bold mb-4">Monetary Benefits Breakdowns</h4>
+            <ul class="space-y-2 text-slate-700">
+              <li>• Retained ARR from Churn: <span class="font-bold text-slate-950" id="benefitArr">$374,999</span></li>
+              <li>• CS Time Savings/Automation: <span class="font-bold text-slate-950" id="benefitCs">$90,000</span></li>
+              <li>• Expansion Revenue Upsell: <span class="font-bold text-slate-950" id="benefitUpsell">$60,000</span></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-bold mb-4">Project Cost Breakdowns</h4>
+            <ul class="space-y-2 text-slate-700">
+              <li>• Development &amp; Allocated Talent: <span class="font-bold text-slate-950" id="costDev">$234,000</span></li>
+              <li>• LLM API Calls &amp; Inference: <span class="font-bold text-slate-950" id="costLlm">$35,000</span></li>
+              <li>• Infra &amp; Vector Storage: <span class="font-bold text-slate-950" id="costInfra">$18,000</span></li>
+              <li>• Maintenance &amp; Observability: <span class="font-bold text-slate-950" id="costMaint">$12,000</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prioritization Snapshot -->
+      <div class="bg-slate-50 rounded-2xl p-6 section-card soft-border">
+        <h3 class="text-lg font-bold mb-4">Prioritization Snapshot</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <div class="text-sm font-semibold text-indigo-600 mb-2">Priority 1</div>
+            <div class="font-bold text-slate-950">Generative AI Explainability</div>
+            <p class="text-sm text-slate-700 mt-2">
+              Highest immediate ROI through CSM triage reduction and retention protection.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <div class="text-sm font-semibold text-indigo-600 mb-2">Priority 2</div>
+            <div class="font-bold text-slate-950">Self-Service Generative Insights</div>
+            <p class="text-sm text-slate-700 mt-2">
+              Expands access and improves early at-risk visibility across stakeholders.
+            </p>
+          </div>
+          <div class="bg-white rounded-xl border border-slate-200 p-4">
+            <div class="text-sm font-semibold text-indigo-600 mb-2">Priority 3</div>
+            <div class="font-bold text-slate-950">Voice of Customer Intelligence</div>
+            <p class="text-sm text-slate-700 mt-2">
+              Strategic roadmap signal linking product effort to revenue impact.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ---------- CBA ----------
+    const BASE_ARR = 10000000;      // $10M ARR
+    const BASELINE_CHURN = 0.10;    // 10%
+
+    const cbaEls = {
+      horizon: document.getElementById('horizon'),
+      churn: document.getElementById('churn'),
+      talent: document.getElementById('talent'),
+      horizonVal: document.getElementById('horizonVal'),
+      churnVal: document.getElementById('churnVal'),
+      talentVal: document.getElementById('talentVal'),
+      roiPct: document.getElementById('roiPct'),
+      benefitsTotal: document.getElementById('benefitsTotal'),
+      costsTotal: document.getElementById('costsTotal'),
+      netValue: document.getElementById('netValue'),
+      benefitArr: document.getElementById('benefitArr'),
+      benefitCs: document.getElementById('benefitCs'),
+      benefitUpsell: document.getElementById('benefitUpsell'),
+      costDev: document.getElementById('costDev'),
+      costLlm: document.getElementById('costLlm'),
+      costInfra: document.getElementById('costInfra'),
+      costMaint: document.getElementById('costMaint')
+    };
+
+    function fmtUSD(n) {
+      return '$' + Math.round(n).toLocaleString('en-US');
+    }
+
+    function updateCBA() {
+      const months = Number(cbaEls.horizon.value);
+      const churnReduction = Number(cbaEls.churn.value) / 100;
+      const monthlyTalent = Number(cbaEls.talent.value);
+
+      cbaEls.horizonVal.textContent = months;
+      cbaEls.churnVal.textContent = Number(cbaEls.churn.value);
+      cbaEls.talentVal.textContent = Number(monthlyTalent).toLocaleString('en-US');
+
+      // Benefits
+      const retainedARR = BASE_ARR * BASELINE_CHURN * churnReduction * (months / 12);
+      const csTimeSavings = 90000 * (months / 18);
+      const upsellRevenue = 60000 * (months / 18);
+
+      const totalBenefits = retainedARR + csTimeSavings + upsellRevenue;
+
+      // Costs
+      const devTalent = 120000 + (monthlyTalent * months);
+      const llmCalls = 35000 * (months / 18) * (1 + churnReduction * 0.25);
+      const infra = 18000 * (months / 18);
+      const maint = 12000 * (months / 18);
+
+      const totalCosts = devTalent + llmCalls + infra + maint;
+      const netValue = totalBenefits - totalCosts;
+      const roi = totalCosts > 0 ? Math.max(0, Math.round(((totalBenefits - totalCosts) / totalCosts) * 100)) : 0;
+
+      cbaEls.roiPct.textContent = roi + '%';
+      cbaEls.benefitsTotal.textContent = fmtUSD(totalBenefits);
+      cbaEls.costsTotal.textContent = fmtUSD(totalCosts);
+      cbaEls.netValue.textContent = fmtUSD(netValue);
+
+      cbaEls.benefitArr.textContent = fmtUSD(retainedARR);
+      cbaEls.benefitCs.textContent = fmtUSD(csTimeSavings);
+      cbaEls.benefitUpsell.textContent = fmtUSD(upsellRevenue);
+
+      cbaEls.costDev.textContent = fmtUSD(devTalent);
+      cbaEls.costLlm.textContent = fmtUSD(llmCalls);
+      cbaEls.costInfra.textContent = fmtUSD(infra);
+      cbaEls.costMaint.textContent = fmtUSD(maint);
+    }
+
+    ['input', 'change'].forEach(evt => {
+      cbaEls.horizon.addEventListener(evt, updateCBA);
+      cbaEls.churn.addEventListener(evt, updateCBA);
+      cbaEls.talent.addEventListener(evt, updateCBA);
+    });
+
+    updateCBA();
+  </script>
+</body>
+</html>

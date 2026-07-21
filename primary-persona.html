@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulse AI – Primary Persona</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', sans-serif; background: #f8fafc; }
+    .section-card { box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 8px 24px rgba(15, 23, 42, 0.06); }
+    .soft-border { border: 1px solid #dbe4f0; }
+    .tab-active { background: #4f46e5 !important; color: #fff !important; border-color: #4f46e5 !important; }
+    .driver-active { background: #eef2ff !important; border-color: #c7d2fe !important; color: #3730a3 !important; }
+    table { border-collapse: collapse; }
+  </style>
+</head>
+<body class="text-slate-900 antialiased">
+
+  <main class="max-w-7xl mx-auto px-4 py-8 md:py-10 space-y-10">
+
+<section class="space-y-5" id="detailed-persona">
+<p class="text-slate-600 max-w-5xl">
+        Sarah Jenkins is the primary persona for PulseAI. She represents the Customer Success leader who needs earlier churn visibility, better operational leverage, and explainable AI insights.
+      </p>
+
+      <div class="bg-white rounded-2xl p-4 md:p-6 section-card soft-border">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Left profile -->
+          <div class="lg:col-span-3 border-b lg:border-b-0 lg:border-r border-slate-200 pb-6 lg:pb-0 lg:pr-6">
+            <div class="flex lg:block items-start gap-4">
+              <div class="shrink-0">
+                <img
+                  id="personaImage"
+                  src="https://image.pollinations.ai/prompt/realistic%20professional%20portrait%20of%20Sarah%20Jenkins%2C%20VP%20of%20Customer%20Success%2C%20Indian%20woman%20in%20her%20early%2040s%2C%20business%20casual%20attire%2C%20modern%20SaaS%20office%2C%20soft%20natural%20lighting%2C%20photorealistic%2C%20high%20detail"
+                  alt="AI-generated portrait of Sarah Jenkins"
+                  class="w-28 h-28 rounded-full object-cover ring-4 ring-orange-100 shadow-md"
+                />
+              </div>
+              <div class="flex-1">
+                <h3 id="personaName" class="text-2xl font-extrabold text-slate-950">Sarah Jenkins</h3>
+                <p id="personaTitle" class="text-indigo-600 font-medium mt-1">VP of Customer Success</p>
+
+                <div class="mt-5 space-y-3 text-sm">
+                  <div><span class="font-bold">Age:</span> <span id="personaAge">42</span></div>
+                  <div class="border-t border-slate-200 pt-3"><span class="font-bold">Company Size:</span> <span id="personaCompany">250 Employees</span></div>
+                  <div class="border-t border-slate-200 pt-3"><span class="font-bold">Industry:</span> <span id="personaIndustry">Enterprise B2B SaaS</span></div>
+                  <div class="border-t border-slate-200 pt-3"><span class="font-bold">Experience:</span> <span id="personaExperience">15+ Years in CS</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right content -->
+          <div class="lg:col-span-9">
+            <div class="space-y-6">
+              <div class="bg-indigo-50 rounded-xl p-5 border border-indigo-100">
+                <p id="personaQuote" class="italic text-slate-700 text-base md:text-lg leading-relaxed">
+                  “We are constantly fighting fires instead of building relationships because our health scores lag behind actual customer sentiment.”
+                </p>
+              </div>
+
+              <div>
+                <h4 class="flex items-center gap-2 font-bold text-lg mb-2">
+                  <span class="w-1 h-7 bg-indigo-600 rounded-full inline-block"></span>
+                  Psychographics &amp; Mindset
+                </h4>
+                <p id="personaPsych" class="text-slate-700 leading-relaxed">
+                  Highly protective of ARR metrics. Stressed by quarterly executive reviews where unexpected churn pops up. Deeply values proactive strategy but feels weighed down by reactive day-to-day crises.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="flex items-center gap-2 font-bold text-lg mb-2">
+                  <span class="w-1 h-7 bg-indigo-600 rounded-full inline-block"></span>
+                  Behaviors
+                </h4>
+                <p id="personaBehaviors" class="text-slate-700 leading-relaxed">
+                  Spends the first 2 hours of every morning reviewing high-value accounts. Constantly requests custom usage data pulls from data science teams to double-check structural health indicators.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="flex items-center gap-2 font-bold text-lg mb-2">
+                  <span class="w-1 h-7 bg-indigo-600 rounded-full inline-block"></span>
+                  Motivations
+                </h4>
+                <p id="personaMotivations" class="text-slate-700 leading-relaxed">
+                  Achieve net revenue retention (NRR) targets exceeding 115%. Build a highly efficient CS operational setup capable of handling a larger volume of accounts without doubling headcount.
+                </p>
+              </div>
+
+              <div>
+                <h4 class="flex items-center gap-2 font-bold text-lg mb-2">
+                  <span class="w-1 h-7 bg-indigo-600 rounded-full inline-block"></span>
+                  Unmet Needs
+                </h4>
+                <p id="personaNeeds" class="text-slate-700 leading-relaxed">
+                  An early-warning indicator system that picks up on semantic anxiety and support ticket fatigue signals before traditional software usage drop-offs manifest.
+                </p>
+              </div>
+
+              <!-- Tech Comfort & AI Sentiment -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                  <h4 class="font-bold text-slate-950 mb-2">Tech Comfort</h4>
+                  <p id="personaTech" class="text-sm text-slate-700">
+                    Comfortable with SaaS tools, dashboards, and workflow automation.
+                  </p>
+                </div>
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
+                  <h4 class="font-bold text-slate-950 mb-2">AI Sentiment</h4>
+                  <p id="personaAI" class="text-sm text-slate-700">
+                    Positive toward AI if outputs are explainable and tied to source data.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Driver Box -->
+              <div class="mt-2 border border-slate-200 rounded-xl p-5 bg-slate-50">
+                <h4 class="font-bold mb-4">
+                  PulseAI Driver Alignment for <span id="driverPersonaName">Sarah</span>
+                </h4>
+
+                <div class="flex flex-wrap gap-2 mb-4" id="driverButtons">
+                  <button class="driver-btn px-4 py-2 rounded-full border bg-white text-sm" data-driver="nrr">NRR Growth Optimization</button>
+                  <button class="driver-btn px-4 py-2 rounded-full border bg-white text-sm" data-driver="ops">Operational Scalability</button>
+                  <button class="driver-btn px-4 py-2 rounded-full border bg-white text-sm" data-driver="support">Proactive Support Overhaul</button>
+                </div>
+
+                <div class="bg-white rounded-lg p-4 border border-slate-200 min-h-[72px]">
+                  <p id="driverText" class="text-slate-700 italic">
+                    Click one of the key drivers above to see how PulseAI explicitly targets Sarah's adoption blockers.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // ---------- Primary Persona ----------
+    const persona = {
+      name: 'Sarah Jenkins',
+      title: 'VP of Customer Success',
+      age: '42',
+      company: '250 Employees',
+      industry: 'Enterprise B2B SaaS',
+      experience: '15+ Years in CS',
+      image: 'https://image.pollinations.ai/prompt/realistic%20professional%20portrait%20of%20Sarah%20Jenkins%2C%20VP%20of%20Customer%20Success%2C%20Indian%20woman%20in%20her%20early%2040s%2C%20business%20casual%20attire%2C%20modern%20SaaS%20office%2C%20soft%20natural%20lighting%2C%20photorealistic%2C%20high%20detail',
+      quote: '“We are constantly fighting fires instead of building relationships because our health scores lag behind actual customer sentiment.”',
+      psych: 'Highly protective of ARR metrics. Stressed by quarterly executive reviews where unexpected churn pops up. Deeply values proactive strategy but feels weighed down by reactive day-to-day crises.',
+      behaviors: 'Spends the first 2 hours of every morning reviewing high-value accounts. Constantly requests custom usage data pulls from data science teams to double-check structural health indicators.',
+      motivations: 'Achieve net revenue retention (NRR) targets exceeding 115%. Build a highly efficient CS operational setup capable of handling a larger volume of accounts without doubling headcount.',
+      needs: 'An early-warning indicator system that picks up on semantic anxiety and support ticket fatigue signals before traditional software usage drop-offs manifest.',
+      tech: 'Comfortable with SaaS tools, dashboards, and workflow automation.',
+      ai: 'Positive toward AI if outputs are explainable and tied to source data.',
+      driverLabel: 'Sarah',
+      drivers: {
+        nrr: 'PulseAI helps Sarah protect and grow NRR by surfacing at-risk accounts early and giving her explainable action plans before renewal pressure peaks.',
+        ops: 'PulseAI reduces the operational burden by replacing manual account gathering with concise account summaries and role-specific recommendations.',
+        support: 'PulseAI connects support, billing, and usage signals into one health view so Sarah can act before customer frustration turns into churn.'
+      }
+    };
+
+    const driverButtons = document.querySelectorAll('.driver-btn');
+
+    const personaEls = {
+      img: document.getElementById('personaImage'),
+      name: document.getElementById('personaName'),
+      title: document.getElementById('personaTitle'),
+      age: document.getElementById('personaAge'),
+      company: document.getElementById('personaCompany'),
+      industry: document.getElementById('personaIndustry'),
+      experience: document.getElementById('personaExperience'),
+      quote: document.getElementById('personaQuote'),
+      psych: document.getElementById('personaPsych'),
+      behaviors: document.getElementById('personaBehaviors'),
+      motivations: document.getElementById('personaMotivations'),
+      needs: document.getElementById('personaNeeds'),
+      tech: document.getElementById('personaTech'),
+      ai: document.getElementById('personaAI'),
+      driverPersonaName: document.getElementById('driverPersonaName'),
+      driverText: document.getElementById('driverText')
+    };
+
+    function setDriverState(active) {
+      driverButtons.forEach(btn => {
+        btn.classList.remove('driver-active');
+        if (btn.dataset.driver === active) btn.classList.add('driver-active');
+      });
+    }
+
+    function setDriverText(driverKey) {
+      personaEls.driverText.textContent = persona.drivers[driverKey];
+      setDriverState(driverKey);
+    }
+
+    function loadPersona() {
+      personaEls.img.src = persona.image;
+      personaEls.img.alt = `AI-generated portrait of ${persona.name}`;
+      personaEls.name.textContent = persona.name;
+      personaEls.title.textContent = persona.title;
+      personaEls.age.textContent = persona.age;
+      personaEls.company.textContent = persona.company;
+      personaEls.industry.textContent = persona.industry;
+      personaEls.experience.textContent = persona.experience;
+      personaEls.quote.textContent = persona.quote;
+      personaEls.psych.textContent = persona.psych;
+      personaEls.behaviors.textContent = persona.behaviors;
+      personaEls.motivations.textContent = persona.motivations;
+      personaEls.needs.textContent = persona.needs;
+      personaEls.tech.textContent = persona.tech;
+      personaEls.ai.textContent = persona.ai;
+      personaEls.driverPersonaName.textContent = persona.driverLabel;
+      personaEls.driverText.textContent = `Click one of the key drivers above to see how PulseAI explicitly targets ${persona.driverLabel}'s adoption blockers.`;
+      setDriverText('nrr');
+    }
+
+    driverButtons.forEach(btn => {
+      btn.addEventListener('click', () => setDriverText(btn.dataset.driver));
+    });
+
+    loadPersona();
+
+  </script>
+</body>
+</html>

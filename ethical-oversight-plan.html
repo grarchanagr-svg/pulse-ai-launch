@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pulse AI – Ethical AI Oversight Plan</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
     :root{
       --bg:#f6f8fc;
       --card:#ffffff;
@@ -19,7 +20,7 @@
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: Inter, Arial, Helvetica, sans-serif;
       background:var(--bg);
       color:var(--text);
       line-height:1.6;
@@ -58,6 +59,8 @@
       font-size:1.35rem;
       line-height:1.2;
       color:#0f172a;
+      padding-left:14px;
+      border-left:4px solid var(--accent2);
     }
     p{margin:0 0 12px}
     table{
@@ -74,9 +77,10 @@
       word-wrap:break-word;
     }
     th{
-      background:#f9fafb;
+      background:linear-gradient(135deg, #f0fdfa, #f8fafc);
       font-weight:700;
       color:#111827;
+      border-bottom:2px solid #99f6e4;
     }
     td{white-space:pre-line}
     .note{
@@ -85,13 +89,6 @@
   </style>
 </head>
 <body>
-  <header>
-    <div class="wrap">
-      <h1>Pulse AI – Ethical AI Oversight Plan</h1>
-      <p class="subtitle">IPL Neural Navigators | ICAIPM2026F | Pulse AI</p>
-    </div>
-  </header>
-
   <main class="wrap">
     <section>
       <p>Pulse AI grounds AI-generated insights in retrieved customer data instead of relying solely on LLM memory, reducing (though not eliminating) hallucinations. Since it processes CRM, support, usage, and billing data through third-party LLMs and generates health scores that influence business decisions, this plan identifies risks across retrieval, generation, and the deployment pipeline, while defining the governance and mitigations needed from pilot to production.</p>
