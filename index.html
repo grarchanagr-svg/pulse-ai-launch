@@ -355,24 +355,36 @@
                     </div>
                 </section>
 
-                <!-- Primary Persona / Business Goals / Cost-Benefit Analysis (persona-solution-bv) -->
+                <!-- Primary Persona (persona-solution-bv) -->
                 <section id="primary-persona" class="scroll-mt-24 space-y-6">
                     <div class="flex items-center gap-3 mb-4 px-4 py-3 rounded-lg bg-indigo-50 border border-indigo-100">
                         <svg class="w-6 h-6 text-indigo-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
                         <h3 class="text-2xl font-bold text-slate-900">Primary Persona</h3>
                     </div>
-                    <p class="text-slate-600 -mt-2">
-                        This embedded document also contains the two flow steps below it — Business Goals &amp; Product Objectives Alignment, and the Initial Cost-Benefit Analysis (CBA) &amp; Prioritization.
-                    </p>
-                    <div id="business-goals-alignment" class="scroll-mt-24"></div>
-                    <div id="cba-prioritization" class="scroll-mt-24"></div>
-                    <div class="flex flex-wrap gap-2 mb-2">
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-600 text-white shadow-sm">1. Primary Persona</span>
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-600 text-white shadow-sm">2. Business Goals &amp; Product Objectives Alignment</span>
-                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-indigo-600 text-white shadow-sm">3. Initial CBA &amp; Prioritization</span>
+                    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
+                        <iframe src="persona-solution-bv.html#detailed-persona" title="Primary Persona" class="embedded-doc" loading="lazy"></iframe>
+                    </div>
+                </section>
+
+                <!-- Business Goals & Product Objectives Alignment (persona-solution-bv) -->
+                <section id="business-goals-alignment" class="scroll-mt-24 space-y-6">
+                    <div class="flex items-center gap-3 mb-4 px-4 py-3 rounded-lg bg-sky-50 border border-sky-100">
+                        <svg class="w-6 h-6 text-sky-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                        <h3 class="text-2xl font-bold text-slate-900">Business Goals &amp; Product Objectives Alignment</h3>
                     </div>
                     <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
-                        <iframe src="persona-solution-bv.html" title="Primary Persona, Business Goals & Cost-Benefit Analysis" class="embedded-doc" loading="lazy"></iframe>
+                        <iframe src="persona-solution-bv.html#business-goals" title="Business Goals & Product Objectives Alignment" class="embedded-doc" loading="lazy"></iframe>
+                    </div>
+                </section>
+
+                <!-- Initial Cost-Benefit Analysis (CBA) & Prioritization (persona-solution-bv) -->
+                <section id="cba-prioritization" class="scroll-mt-24 space-y-6">
+                    <div class="flex items-center gap-3 mb-4 px-4 py-3 rounded-lg bg-purple-50 border border-purple-100">
+                        <svg class="w-6 h-6 text-purple-600 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="8" y2="10"/><line x1="12" y1="10" x2="12" y2="10"/><line x1="16" y1="10" x2="16" y2="14"/><line x1="8" y1="14" x2="8" y2="14"/><line x1="12" y1="14" x2="12" y2="14"/><line x1="8" y1="18" x2="8" y2="18"/><line x1="12" y1="18" x2="12" y2="18"/></svg>
+                        <h3 class="text-2xl font-bold text-slate-900">Initial Cost-Benefit Analysis (CBA) &amp; Prioritization</h3>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
+                        <iframe src="persona-solution-bv.html#cba-prioritization" title="Cost-Benefit Analysis & Prioritization" class="embedded-doc" loading="lazy"></iframe>
                     </div>
                 </section>
 
@@ -781,10 +793,22 @@ Transforms reactive customer management into proactive revenue protection.}}
         function resizeEmbeddedDoc(iframe) {
             try {
                 const doc = iframe.contentWindow.document;
-                const height = Math.max(
-                    doc.body ? doc.body.scrollHeight : 0,
-                    doc.documentElement ? doc.documentElement.scrollHeight : 0
-                );
+                const src = iframe.getAttribute('src') || '';
+                const hashIdx = src.indexOf('#');
+                let targetEl = null;
+                if (hashIdx !== -1) {
+                    targetEl = doc.getElementById(src.slice(hashIdx + 1));
+                }
+                let height;
+                if (targetEl) {
+                    height = targetEl.scrollHeight || targetEl.offsetHeight;
+                    targetEl.scrollIntoView({ block: 'start' });
+                } else {
+                    height = Math.max(
+                        doc.body ? doc.body.scrollHeight : 0,
+                        doc.documentElement ? doc.documentElement.scrollHeight : 0
+                    );
+                }
                 if (height) {
                     iframe.style.height = (height + 24) + 'px';
                 }
