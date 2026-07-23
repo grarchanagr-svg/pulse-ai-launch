@@ -1,412 +1,688 @@
-<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pulse AI – Technical Documentation</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-    :root{
-      --navy:#17395f;
-      --light:#e9f0fa;
-      --text:#1f2937;
-      --muted:#4b5563;
-      --border:#cbd5e1;
-      --bg:#ffffff;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Pulse AI — Technical Documentation</title>
+<style>
+  :root {
+    --navy:      #0E1B2E;
+    --paper:     #F7F5F0;
+    --card:      #FFFFFF;
+    --line:      #E2DFD5;
+    --ink:       #14202E;
+    --ink-soft:  #56606C;
+    --brass:     #A9822F;
+    --brass-bg:  #FBF4E3;
+    --teal:      #1F9E8E;
+    --coral:     #E15B4C;
+    --amber:     #E1993B;
+    --blue:      #3B6FA0;
+    --green-bg:  #F0FAF8;
+    --amber-bg:  #FEF9EE;
+    --coral-bg:  #FEF2F1;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
 
-    * { box-sizing: border-box; }
-    body{
-      margin:0;
-      font-family: Inter, Arial, Helvetica, sans-serif;
-      color:var(--text);
-      background:#f8fafc;
-      line-height:1.5;
-    }
+  /* ── Page wrapper ── */
+  .doc-root {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 32px 80px;
+  }
 
-    .page{
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 24px 18px 48px;
-      background: var(--bg);
-    }
+  /* ── Cover ── */
+  .cover {
+    background: var(--navy);
+    margin: 0 -32px 0;
+    padding: 48px 32px 36px;
+    border-bottom: 3px solid var(--brass);
+  }
+  .cover-kicker {
+    font-family: ui-monospace, 'Consolas', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin: 0 0 12px;
+  }
+  .cover h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #F2EFE8;
+    margin: 0 0 8px;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+  }
+  .cover-sub {
+    font-size: 15px;
+    color: #8DA3BC;
+    margin: 0 0 22px;
+  }
+  .cover-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    font-size: 12.5px;
+    font-family: ui-monospace, 'Consolas', monospace;
+    color: #57728A;
+    border-top: 1px solid #1E3A55;
+    padding-top: 18px;
+  }
+  .cover-meta span { display: flex; align-items: center; gap: 5px; }
+  .cover-meta b { color: #A9BECF; }
 
-    .title-bar{
-      background: var(--navy);
-      color:#fff;
-      text-align:center;
-      font-weight:700;
-      font-size: 28px;
-      padding: 10px 16px;
-      letter-spacing:.2px;
-    }
+  /* ── TOC ── */
+  .toc-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 18px 22px;
+    margin: 28px 0 0;
+  }
+  .toc-label {
+    font-family: ui-monospace, 'Consolas', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 10px;
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px 24px;
+  }
+  .toc-grid a {
+    display: block;
+    padding: 5px 0;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  .toc-grid a:hover { color: var(--brass); }
+  .toc-num {
+    font-family: ui-monospace, 'Consolas', monospace;
+    font-size: 11px;
+    color: var(--brass);
+    margin-right: 5px;
+  }
 
-    .subtitle-bar{
-      background: var(--light);
-      color:#243b53;
-      text-align:center;
-      font-weight:700;
-      font-size: 18px;
-      padding: 6px 16px;
-      margin-bottom: 22px;
-    }
+  /* ── Page break ── */
+  .page-break {
+    border: none;
+    border-top: 2px solid var(--navy);
+    margin: 52px 0 0;
+    position: relative;
+  }
+  .page-break-label {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--paper);
+    padding: 0 12px;
+    font-family: ui-monospace, 'Consolas', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
 
-    h2.section{
-      font-size: 22px;
-      margin: 30px 0 14px;
-      padding: 8px 0 8px 14px;
-      border-top: none;
-      border-left: 4px solid #1e3a5f;
-      background: var(--light);
-      color:#243b53;
-      font-weight:700;
-    }
+  /* ── Section headings ── */
+  h2 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 2.6em 0 0.6em;
+    padding-top: 0.5em;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 20px;
+  }
+  h2:first-of-type { border-top: none; padding-top: 0; margin-top: 1.6em; }
+  h3 {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 1.8em 0 0.5em;
+    scroll-margin-top: 20px;
+  }
+  h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 1.4em 0 0.4em;
+  }
+  p { margin: 0.8em 0; color: #24344A; }
+  strong { color: var(--ink); }
+  a { color: var(--brass); text-decoration: none; }
+  a:hover { text-decoration: underline; }
 
-    h3{
-      font-size: 18px;
-      margin: 18px 0 8px;
-      color:#243b53;
-    }
+  ul, ol { padding-left: 1.4em; }
+  li { margin: 0.4em 0; color: #24344A; }
 
-    p{
-      margin: 8px 0 12px;
-      font-size: 16px;
-    }
+  /* ── Code / mono ── */
+  code {
+    font-family: ui-monospace, 'Consolas', monospace;
+    background: var(--brass-bg);
+    color: #7A4A10;
+    padding: 0.12em 0.38em;
+    border-radius: 4px;
+    font-size: 0.88em;
+  }
+  pre {
+    background: var(--navy);
+    color: #B9D4EE;
+    border-radius: 8px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    font-size: 12.5px;
+    line-height: 1.7;
+    margin: 1em 0;
+  }
+  pre code {
+    background: none;
+    color: inherit;
+    padding: 0;
+    font-size: inherit;
+    border-radius: 0;
+  }
+  .hl-key   { color: #7FD9CC; }
+  .hl-str   { color: #F0C678; }
+  .hl-cmt   { color: #57728A; }
+  .hl-kw    { color: #C78FE8; }
 
-    ol, ul{
-      margin: 8px 0 14px 24px;
-      padding: 0;
-      font-size: 16px;
-    }
+  /* ── Architecture diagram ── */
+  .arch-wrap {
+    background: var(--navy);
+    border-radius: 10px;
+    padding: 22px 18px 18px;
+    margin: 16px 0;
+    overflow-x: auto;
+  }
+  .arch-wrap pre {
+    background: none;
+    margin: 0;
+    padding: 0;
+    color: #B9D4EE;
+    font-size: 12px;
+  }
 
-    li{ margin: 6px 0; }
+  /* ── Info / callout cards ── */
+  .callout {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--amber);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 13.5px;
+    color: #4A3A1F;
+    margin: 16px 0;
+  }
+  .callout.info  { border-left-color: var(--teal);  color: #1A3F32; background: var(--green-bg); }
+  .callout.risk  { border-left-color: var(--coral); color: #4A1A14; background: var(--coral-bg); }
+  .callout.note  { border-left-color: var(--blue);  color: #1A2F4A; background: #EFF4FA; }
+  .callout-title { font-weight: 700; margin-bottom: 3px; }
 
-    .figure{
-      margin: 18px 0 24px;
-      text-align:center;
-    }
+  /* ── Tables ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.2em 0;
+    font-size: 13px;
+  }
+  th {
+    background: var(--navy);
+    color: #F2EFE8;
+    font-weight: 600;
+    text-align: left;
+    padding: 9px 12px;
+    border: 1px solid var(--navy);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+  }
+  td {
+    border: 1px solid var(--line);
+    padding: 8px 12px;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #FBFAF6; }
 
-    .figure img{
-      max-width: 100%;
-      height: auto;
-      border: 1px solid #dbe2ea;
-      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
-      display:block;
-      margin: 0 auto;
-      background:#fff;
-    }
+  /* ── Credential flow timeline ── */
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 14px 0;
+  }
+  .flow-step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .flow-step-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 24px;
+  }
+  .flow-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .flow-connector {
+    width: 2px;
+    flex: 1;
+    min-height: 18px;
+    background: var(--line);
+  }
+  .flow-content {
+    padding: 2px 0 18px;
+    flex: 1;
+  }
+  .flow-content strong { font-size: 13.5px; color: var(--ink); }
+  .flow-content p { margin: 2px 0 0; font-size: 12.5px; color: var(--ink-soft); }
 
-    .caption{
-      margin-top: 8px;
-      font-style: italic;
-      color:#6b7280;
-      font-size: 14px;
-    }
+  /* ── Component badges ── */
+  .badge {
+    display: inline-block;
+    font-family: ui-monospace, 'Consolas', monospace;
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 5px;
+    border: 1px solid;
+    font-weight: 600;
+  }
+  .badge-teal   { background: var(--green-bg); color: var(--teal);  border-color: var(--teal);  }
+  .badge-amber  { background: var(--amber-bg); color: #7A4A00;      border-color: var(--amber); }
+  .badge-navy   { background: #EEF2F7;         color: var(--navy);  border-color: var(--navy);  }
+  .badge-coral  { background: var(--coral-bg); color: var(--coral); border-color: var(--coral); }
 
-    table{
-      width:100%;
-      border-collapse: collapse;
-      margin: 10px 0 18px;
-      background:#fff;
-    }
+  /* ── Two-col layout for small tables ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+  .mini-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .mini-card h4 { margin: 0 0 8px; font-size: 12px; }
+  .mini-card p  { font-size: 12.5px; margin: 3px 0; }
 
-    th, td{
-      border:1px solid #111827;
-      padding: 10px 12px;
-      vertical-align: top;
-      text-align:left;
-      font-size: 15px;
-    }
+  /* ── Footer ── */
+  footer {
+    margin-top: 60px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
 
-    th{
-      background:#1e3a5f;
-      color:#fff;
-      font-weight:700;
-    }
-
-    .subtle{
-      color:#334155;
-      font-weight:700;
-      margin-top: 14px;
-    }
-
-    @media print {
-      body { background:#fff; }
-      .page { max-width:none; padding:0; }
-      .title-bar, .subtitle-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-      .figure { page-break-inside: avoid; }
-      table { page-break-inside: auto; }
-      tr { page-break-inside: avoid; page-break-after: auto; }
-    }
-  </style>
+  @media (max-width: 640px) {
+    .doc-root { padding: 0 18px 60px; }
+    .cover { margin: 0 -18px; padding: 36px 18px 28px; }
+    .toc-grid { grid-template-columns: 1fr; }
+    .two-col  { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 <body>
-  <main class="page">
-    <h2 class="section">1. System Overview</h2>
-    <p>
-      Pulse AI turns fragmented customer data -CRM notes, support tickets, product usage telemetry, and contract data
-      -into one clear, explainable health story per account. Every statement in a report is grounded in real retrieved data,
-      not guessed by the model, so a Customer Success Manager can see what is happening, why, and what to do next.
-    </p>
-    <p>
-      The system is built on Retrieval-Augmented Generation (RAG), orchestrated in Langflow, with a Streamlit dashboard
-      for the front end and a static documentation site on GitHub Pages.
-    </p>
+<div class="doc-root">
 
-    <h2 class="section">2. System Architecture</h2>
-    <p>The steps below trace one request from browser to LLM and back:</p>
-    <ol>
-      <li>
-        The user opens the Docs Site (GitHub Pages) and enters Langflow credentials in the Connect modal. Credentials are
-        saved to the browser's localStorage only.
-      </li>
-      <li>
-        Clicking Live Demo reads those credentials and loads the Streamlit dashboard in an iframe, with the credentials
-        appended as URL query params: ?lf_url=&amp;lf_key=&amp;lf_portfolio=
-      </li>
-      <li>
-        Streamlit reads those params on startup and uses them to call the Langflow REST API -server-side, never from the
-        browser directly.
-      </li>
-      <li>
-        Langflow runs the matching RAG pipeline (embed → retrieve → augment → generate) and returns a structured
-        health report as text.
-      </li>
-      <li>
-        Streamlit parses that text into the dashboard's cards, score rings, badges, and action lists.
-      </li>
-      <li>
-        An ngrok tunnel exposes the local Langflow instance (and, for this prototype, Streamlit itself) as a public HTTPS URL
-        so the hosted doc site can reach them.
-      </li>
-    </ol>
-
-    <div class="figure">
-      <img src="images/figure1-architecture.png" alt="figure1-architecture.png" />
-      <div class="caption">Figure 1 -Pulse AI end-to-end architecture: browser, tunnels, Langflow, vector store, and LLM.</div>
+  
+  <div class="cover">
+    <p class="cover-kicker">Technical Documentation  ·  Internal Reference</p>
+    <h1>Pulse AI — Customer Health Intelligence</h1>
+    <p class="cover-sub">Architecture, component design, credential flow, API contracts, and deployment guide for the <strong style="color:#C9D3DE">v3.0</strong> release.</p>
+    <div class="cover-meta">
+      <span><b>Version</b> 3.0</span>
+      <span><b>Stack</b> Python · Streamlit · Langflow · ngrok · GitHub Pages</span>
+      <span><b>Deployment</b> Local + GitHub Pages (iframe shell)</span>
+      <span><b>Accounts</b> 20 tracked (ACC-001 → ACC-020)</span>
     </div>
+  </div>
 
-    <h2 class="section">3. RAG Pipeline</h2>
-    <p>
-      Retrieval-Augmented Generation replaces a purely parametric LLM answer with one grounded in real, retrieved
-      customer data. Instead of asking the model to recall facts from memory, Pulse AI first retrieves the relevant chunks of
-      that account's actual data, then hands them to the model as context.
-    </p>
-
-    <ol>
-      <li>Query -account_id (e.g. ACC-003) is sent as the only input.</li>
-      <li>Embed -the account_id is converted into a vector using the same embedding model that indexed the knowledge base.</li>
-      <li>Retrieve -the most similar chunks are pulled from the vector store: CRM notes, tickets, usage data, and billing records for that account.</li>
-      <li>Augment -those chunks are inserted into the model's prompt as grounding context, alongside instructions on exactly how to structure the output.</li>
-      <li>Generate -the model writes a structured markdown report: Account Summary, Usage &amp; Adoption, Support &amp; Escalations, Commercial Health, Risk Assessment, Recommended Actions.</li>
-    </ol>
-
-    <p>
-      Why account_id as the query? A structured ID gives the most precise retrieval. Every chunk in the vector store is
-      tagged with an account_id, so this query pulls everything for that account and nothing from any other -no cross￾account mix-ups in the generated report.
-    </p>
-
-    <div class="subtle">Knowledge Base Contents</div>
-    <ul>
-      <li>CRM notes -account manager notes, escalation history, relationship signals</li>
-      <li>Support tickets -ticket ID, severity (Critical/High/Medium/Low), category, status</li>
-      <li>Product usage telemetry -DAU, feature adoption %, API calls, session length, NPS</li>
-      <li>Commercial data -contract value, renewal date, plan tier, CSM, expansion signals</li>
-    </ul>
-
-    <h2 class="section">4. The Two Langflow Flows</h2>
-
-    <h3>Flow 1 -Account Health</h3>
-    <p>Generates a full executive health report for one account.</p>
-    <ol>
-      <li>Chat Input receives the account_id (e.g. ACC-003).</li>
-      <li>
-        Extract Account Filter (custom component) reads the ID with a simple pattern match and builds a metadata filter,
-        e.g. {"account_id": "ACC-003"}.
-      </li>
-      <li>
-        Astra DB embeds the query and runs a similarity search against the account_signals collection, filtered to that
-        account, returning the top 20 matching records.
-      </li>
-      <li>Data → Text formats those records into one context block covering all four data categories.</li>
-      <li>
-        Prompt Template combines the account_id, the retrieved context, and detailed formatting rules -including the
-        exact scoring rubric used to calculate the Health Score.
-      </li>
-      <li>
-        OpenAI (gpt-4o-mini, temperature 0.1) writes the markdown report and the final score.
-      </li>
-      <li>
-        Chat Output returns the report text to Streamlit, which renders it and caches it for the session.
-      </li>
-    </ol>
-
-    <p>API call: POST /api/v1/run/&lt;account-flow-id&gt; {"input_value": "ACC-003", "input_type": "chat"}</p>
-
-    <div class="figure">
-      <img src="images/figure2-flow1-account-health.png" alt="figure2-flow1-account-health.png" />
-      <div class="caption">Figure 2 -Flow 1: Account Health, step by step.</div>
+  
+  <div class="toc-card">
+    <p class="toc-label">Contents</p>
+    <div class="toc-grid">
+      <a href="#arch"><span class="toc-num">1</span>System Architecture</a>
+      <a href="#credential-flow"><span class="toc-num">2</span>Credential &amp; Settings Flow</a>
+      <a href="#components"><span class="toc-num">3</span>Component Reference</a>
+      <a href="#api"><span class="toc-num">4</span>Langflow API Contract</a>
+      <a href="#rendering"><span class="toc-num">5</span>Report Rendering Pipeline</a>
+      <a href="#portfolio"><span class="toc-num">6</span>Portfolio Overview Engine</a>
+      <a href="#startup"><span class="toc-num">7</span>Startup &amp; Deployment</a>
+      <a href="#security"><span class="toc-num">8</span>Security Model</a>
     </div>
+  </div>
 
-    <h3>Flow 2 -Portfolio Aggregator</h3>
-    <p>Produces a portfolio-wide summary across every tracked account.</p>
-    <ol>
-      <li>Receives the literal string "portfolio" as its trigger input.</li>
-      <li>Astra DB returns records for every account in the knowledge base (up to 500 results).</li>
-      <li>
-        Portfolio Aggregator (custom Python component) scores each account 0–100 and classifies it Healthy / At Risk /
-        Critical -the same rubric as Flow 1, computed directly in Python rather than by the LLM.
-      </li>
-      <li>That scored table is sent to a Prompt Template, which asks OpenAI for a short narrative portfolio briefing.</li>
-      <li>
-        Two things come back: the pipe-delimited scored table (used for the donut chart and top-risk list) straight from the
-        aggregator, and the AI-written narrative from OpenAI.
-      </li>
-      <li>
-        Streamlit caches both in session state for the rest of the session, so the sidebar doesn't re-call Langflow on every
-        rerun.
-      </li>
-    </ol>
+  
 
-    <p>API call: POST /api/v1/run/&lt;portfolio-flow-id&gt; {"input_value": "portfolio", "input_type": "chat"}</p>
+  
+  <h2 id="arch">1. System Architecture</h2>
+  <p>Pulse AI is a <strong>three-tier, locally-hosted stack</strong> tunnelled to a public GitHub Pages front-end. No user data or credentials are stored server-side at any point.</p>
 
-    <div class="figure">
-      <img src="images/figure3-flow2-portfolio-aggregator.png" alt="figure3-flow2-portfolio-aggregator.png" />
-      <div class="caption">Figure 3 -Flow 2: Portfolio Aggregator, step by step.</div>
+  <div class="arch-wrap">
+    <pre>
+  ┌─────────────────────────────── Developer machine ───────────────────────────────┐
+  │                                                                                  │
+  │  Langflow Desktop :7860   ──► ngrok tunnel A ──► https://aaa.ngrok-free.app     │
+  │  (RAG flows + LLM)              (HTTPS)              /api/v1/run/{flow-id}       │
+  │                                                                                  │
+  │  Streamlit :8501          ──► ngrok tunnel B ──► https://bbb.ngrok-free.app     │
+  │  app/pulse_app.py               (HTTPS)              (the dashboard)             │
+  │                                                           ▲                      │
+  └───────────────────────────────────────────────────────────│──────────────────────┘
+                                                              │ iframe src (query params)
+                                            ┌─────────────────────────────┐
+                                            │  GitHub Pages / localhost   │
+                                            │  index.html                 │
+                                            │  assets/css/style.css       │
+                                            │  assets/js/site.js          │
+                                            │                             │
+                                            │  localStorage ──► URL params│
+                                            └─────────────────────────────┘
+    </pre>
+  </div>
+
+  <h3>Why ngrok instead of Streamlit Cloud?</h3>
+  <p>Streamlit Cloud injects <code>X-Frame-Options: SAMEORIGIN</code> at the infrastructure level, which prevents the app from being embedded in an iframe on a different origin. Running Streamlit locally through ngrok gives full control over response headers — no iframe restrictions apply.</p>
+
+  <h3>Request flow for a health report</h3>
+  <ol>
+    <li>User selects an account in the sidebar and clicks <strong>Generate Health Report</strong>.</li>
+    <li>Streamlit sets <code>st.session_state.pending_generate</code> and calls <code>st.rerun()</code> — the browser paints the loading state <em>before</em> the blocking network request starts.</li>
+    <li>On the next rerun, Streamlit posts <code>POST {LANGFLOW_URL}</code> with <code>input_value = account_id</code> (e.g. <code>ACC-003</code>).</li>
+    <li>Langflow's RAG pipeline retrieves all vectors tagged with that account ID, synthesises the report, and returns structured Markdown.</li>
+    <li>The response is parsed by <code>parse_sections()</code>, classified by <code>classify_section()</code>, and rendered through the section-specific renderer pipeline.</li>
+  </ol>
+
+  
+  <h2 id="credential-flow">2. Credential &amp; Settings Flow</h2>
+  <p>Credentials travel from the user's browser to Streamlit via URL query parameters. They are <strong>never committed to source code</strong> and never sent to any third-party service.</p>
+
+  <div class="flow-steps">
+    <div class="flow-step">
+      <div class="flow-step-line"><div class="flow-dot">1</div><div class="flow-connector"></div></div>
+      <div class="flow-content">
+        <strong>start.bat writes to localStorage</strong>
+        <p>After tunnels are live, the batch script generates a temporary HTML page that writes <code>{ streamlitUrl, url, portfolioUrl, key }</code> to <code>localStorage["pulseai.langflow.settings.v1"]</code> and then redirects to the doc site.</p>
+      </div>
     </div>
-
-    <h2 class="section">5. Credential &amp; Security Flow</h2>
-    <ul>
-      <li>No credential is ever stored in source code, git history, or on any server.</li>
-      <li>1. The user enters Langflow URLs and an API key in the Connect modal on the docs site.</li>
-      <li>2. Those values are saved to the browser's localStorage only -never sent anywhere else.</li>
-      <li>3. Clicking Live Demo reads localStorage and appends the values as URL query params.</li>
-      <li>4. Streamlit reads those params at startup; they live only in that session's memory.</li>
-      <li>
-        5. The OpenAI API key stays inside the Langflow server's environment variables -it is never part of any request
-        or response Streamlit sees.
-      </li>
-    </ul>
-
-    <h3>What is never exposed?</h3>
-    <ul>
-      <li>The OpenAI API key -stays inside Langflow's server environment</li>
-      <li>The Langflow API key -stored only in the user's browser localStorage</li>
-      <li>Any credential in source code or git history</li>
-    </ul>
-
-    <h3>Controlled exposure (safe by design)</h3>
-    <ul>
-      <li>Langflow's public URL -useless on its own without the API key</li>
-      <li>The ngrok tunnel URL -rotates on every restart</li>
-      <li>Demo account data -entirely fictional (Acme Corp, Stark Industries, etc.)</li>
-    </ul>
-
-    <h2 class="section">6. Live Demo Screenshots</h2>
-    <p>The following captures show the live dashboard and the reports it generates.</p>
-
-    <h3>Portfolio Overview Dashboard</h3>
-    <p>
-      The portfolio view rolls all 20 tracked accounts into one snapshot -a donut chart of Healthy / At Risk / Critical
-      accounts, a ranked list of the top 5 accounts needing attention, and a live signal breakdown across usage, support,
-      billing, and engagement.
-    </p>
-
-    <div class="figure">
-      <img src="images/figure4-portfolio-overview.png" alt="figure4-portfolio-overview.png" />
-      <div class="caption">Figure 4 -Portfolio Overview: live Streamlit dashboard.</div>
+    <div class="flow-step">
+      <div class="flow-step-line"><div class="flow-dot">2</div><div class="flow-connector"></div></div>
+      <div class="flow-content">
+        <strong>site.js reads localStorage on DOMContentLoaded</strong>
+        <p><code>initIframe()</code> in <code>assets/js/site.js</code> calls <code>readSettings()</code>. If settings are present it calls <code>buildStreamlitUrl(lf)</code> which appends <code>?lf_url=…&amp;lf_key=…&amp;lf_portfolio=…</code> to the ngrok Streamlit base URL, then sets <code>iframe.src</code>.</p>
+      </div>
     </div>
-
-    <h3>Account Health Report</h3>
-    <p>
-      Selecting an account and generating a report produces a full executive narrative: a health score ring, account
-      summary, usage and adoption trends, support and escalation detail, a risk assessment with named risk factors, and
-      prioritized recommended actions. The example below is a Critical account (Hooli Cloud).
-    </p>
-
-    <div class="figure">
-      <img src="images/figure5a-account-health-summary.png" alt="figure5a-account-health-summary.png" />
-      <div class="caption">Figure 5a -Account Health Report: summary and usage &amp; adoption.</div>
+    <div class="flow-step">
+      <div class="flow-step-line"><div class="flow-dot">3</div><div class="flow-connector"></div></div>
+      <div class="flow-content">
+        <strong>Streamlit reads query params on each request</strong>
+        <p><code>_get_credential(qp_key, env_key)</code> in <code>pulse_app.py</code> checks <code>st.query_params</code> first, then <code>os.environ</code>, then falls back to an empty string (shell-only mode).</p>
+      </div>
     </div>
-
-    <div class="figure">
-      <img src="images/figure5b-account-health-risk.png" alt="figure5b-account-health-risk.png" />
-      <div class="caption">Figure 5b -Account Health Report: risk assessment and recommended actions.</div>
+    <div class="flow-step">
+      <div class="flow-step-line"><div class="flow-dot">4</div><div class="flow-connector"></div></div>
+      <div class="flow-content">
+        <strong>Langflow calls are server-side only</strong>
+        <p>All <code>requests.post()</code> calls happen inside Streamlit's Python process. The API key is never sent to the browser or written to a log file.</p>
+      </div>
     </div>
+    <div class="flow-step">
+      <div class="flow-step-line"><div class="flow-dot">5</div><div class="flow-connector"></div></div>
+      <div class="flow-content">
+        <strong>Manual override via Connect modal</strong>
+        <p>The <em>Connect</em> button in the doc-site header opens a settings modal. On Save, <code>writeSettings()</code> persists to localStorage and <code>reloadIframe()</code> rebuilds and resets the iframe <code>src</code>.</p>
+      </div>
+    </div>
+  </div>
 
-    <h2 class="section">7. Tech Stack</h2>
-    <table>
-      <thead>
-        <tr>
-          <th style="width:18%;">Layer</th>
-          <th style="width:20%;">Technology</th>
-          <th style="width:15%;">Version</th>
-          <th>Purpose</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>AI orchestration</td>
-          <td>Langflow</td>
-          <td>&ge;1.0</td>
-          <td>Visual RAG pipeline builder -wires vector store, embeddings, and LLM into a deployable REST flow</td>
-        </tr>
-        <tr>
-          <td>LLM</td>
-          <td>OpenAI gpt-4o-mini</td>
-          <td>API, temp 0.1</td>
-          <td>Generates structured health narratives from retrieved data</td>
-        </tr>
-        <tr>
-          <td>Vector store</td>
-          <td>Astra DB</td>
-          <td>—</td>
-          <td>Stores embedded account data (collection: account_signals)</td>
-        </tr>
-        <tr>
-          <td>Dashboard</td>
-          <td>Streamlit</td>
-          <td>&ge;1.32</td>
-          <td>Renders health cards, score rings, donut chart, PDF export</td>
-        </tr>
-        <tr>
-          <td>PDF export</td>
-          <td>fpdf2</td>
-          <td>&ge;2.7</td>
-          <td>Generates a downloadable health report PDF</td>
-        </tr>
-        <tr>
-          <td>Markdown parsing</td>
-          <td>markdown (Python)</td>
-          <td>&ge;3.5</td>
-          <td>Converts the LLM's markdown into dashboard HTML</td>
-        </tr>
-        <tr>
-          <td>HTTP client</td>
-          <td>requests</td>
-          <td>&ge;2.31</td>
-          <td>Calls the Langflow REST API from Streamlit</td>
-        </tr>
-        <tr>
-          <td>Docs site</td>
-          <td>Plain HTML / CSS / JS</td>
-          <td>—</td>
-          <td>Zero-build static site: briefing, launcher, settings</td>
-        </tr>
-        <tr>
-          <td>Docs hosting</td>
-          <td>GitHub Pages</td>
-          <td>—</td>
-          <td>Free static hosting from the repository</td>
-        </tr>
-        <tr>
-          <td>Tunnel</td>
-          <td>ngrok</td>
-          <td>—</td>
-          <td>Exposes local Langflow (and Streamlit) over HTTPS</td>
-        </tr>
-      </tbody>
-    </table>
-  </main>
+  <table>
+    <thead><tr><th>localStorage field</th><th>Streamlit query param</th><th>Environment variable</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>url</code></td><td><code>lf_url</code></td><td><code>LANGFLOW_URL</code></td><td>Account health flow run endpoint</td></tr>
+      <tr><td><code>portfolioUrl</code></td><td><code>lf_portfolio</code></td><td><code>LANGFLOW_PORTFOLIO_URL</code></td><td>Portfolio aggregator flow run endpoint</td></tr>
+      <tr><td><code>key</code></td><td><code>lf_key</code></td><td><code>LANGFLOW_API_KEY</code></td><td>Langflow <code>x-api-key</code> header</td></tr>
+      <tr><td><code>streamlitUrl</code></td><td><em>n/a (used by site.js only)</em></td><td><em>n/a</em></td><td>ngrok public URL for Streamlit iframe src</td></tr>
+    </tbody>
+  </table>
+
+  
+  <h2 id="components">3. Component Reference</h2>
+
+  <div class="two-col">
+    <div class="mini-card">
+      <h4>index.html <span class="badge badge-navy">doc site</span></h4>
+      <p><strong>Role:</strong> Full-viewport demo shell. Hosts the Streamlit iframe, Product Briefing overlay modal, and Connect Langflow settings modal.</p>
+      <p><strong>Layout class:</strong> <code>body.demo-shell</code> — flex column, 100vh.</p>
+      <p><strong>iframe:</strong> <code>#pulse-frame</code>, <code>about:blank</code> on load; src set by site.js after credentials are read.</p>
+    </div>
+    <div class="mini-card">
+      <h4>assets/js/site.js <span class="badge badge-amber">JavaScript</span></h4>
+      <p><strong>Role:</strong> All browser-side logic. localStorage r/w, iframe loader, briefing modal, settings modal, credential-aware URL builder.</p>
+      <p><strong>Key functions:</strong> <code>initIframe()</code>, <code>loadFrame()</code>, <code>reloadIframe()</code>, <code>buildStreamlitUrl()</code>, <code>showSetupCard()</code>.</p>
+    </div>
+    <div class="mini-card">
+      <h4>assets/css/style.css <span class="badge badge-navy">CSS</span></h4>
+      <p><strong>Role:</strong> Doc-site styles. Includes <code>body.demo-shell</code> full-viewport layout, <code>.demo-iframe-wrap</code> absolute-fill iframe container, <code>.briefing-overlay</code> slide-in modal, loading spinner, and setup card.</p>
+    </div>
+    <div class="mini-card">
+      <h4>app/pulse_app.py <span class="badge badge-teal">Streamlit</span></h4>
+      <p><strong>Role:</strong> Core dashboard. Sidebar, Portfolio Overview, report generation, section rendering, PDF/email export. All HTML built via string concatenation — no nested f-strings.</p>
+      <p><strong>Version:</strong> v3.0 — query is account_id only (e.g. <code>ACC-003</code>).</p>
+    </div>
+  </div>
+
+  
+  <h2 id="api">4. Langflow API Contract</h2>
+  <p>Pulse AI requires <strong>two Langflow flows</strong>, each exposed via the standard <code>/api/v1/run/{flow-id}</code> endpoint.</p>
+
+  <h3>Account Health Flow</h3>
+  <table>
+    <thead><tr><th>Field</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Method</td><td><code>POST</code></td></tr>
+      <tr><td>URL</td><td><code>https://{ngrok}/api/v1/run/23c05a7b-e595-4ffb-b783-56bad5ab65dc</code></td></tr>
+      <tr><td>Header</td><td><code>x-api-key: sk-...</code></td></tr>
+      <tr><td><code>input_value</code></td><td>Account ID string — e.g. <code>ACC-003</code></td></tr>
+      <tr><td><code>input_type</code></td><td><code>chat</code></td></tr>
+      <tr><td><code>session_id</code></td><td>Same as <code>input_value</code> — isolates session state per account</td></tr>
+      <tr><td>Timeout</td><td>90 s</td></tr>
+      <tr><td>Response path</td><td><code>outputs[0].outputs[0].results.message.text</code></td></tr>
+      <tr><td>Response format</td><td>Structured Markdown — sections delimited by <code>##</code> headers</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Portfolio Aggregator Flow</h3>
+  <table>
+    <thead><tr><th>Field</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Method</td><td><code>POST</code></td></tr>
+      <tr><td>URL</td><td><code>https://{ngrok}/api/v1/run/c94cf6ad-4f38-4d92-9f6b-d33c50ca5ba5</code></td></tr>
+      <tr><td><code>input_value</code></td><td><code>"portfolio"</code> (literal string)</td></tr>
+      <tr><td><code>session_id</code></td><td><code>"portfolio"</code></td></tr>
+      <tr><td>Timeout</td><td>120 s</td></tr>
+      <tr><td>Table output source</td><td><code>properties.source.display_name == "Portfolio Aggregator"</code></td></tr>
+      <tr><td>Table format</td><td>Pipe-delimited rows: <code>account_id | name | score | status</code>, sorted ascending by health score</td></tr>
+      <tr><td>Narrative output</td><td>Second output node — Markdown portfolio commentary</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout note">
+    <div class="callout-title">Session isolation</div>
+    Setting <code>session_id = account_id</code> (e.g. <code>ACC-003</code>) ensures Langflow's conversation memory does not bleed between accounts when the same flow is queried for different accounts in rapid succession.
+  </div>
+
+  
+  <hr class="page-break" /><span class="page-break-label">Page 2</span>
+
+  
+  <h2 id="rendering">5. Report Rendering Pipeline</h2>
+  <p>Raw Markdown returned by Langflow passes through a deterministic five-stage pipeline before reaching the browser.</p>
+
+  <table>
+    <thead><tr><th>Stage</th><th>Function</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>1 — Parse</td><td><code>parse_sections(text)</code></td><td>Splits on <code>##</code> / <code>###</code> headers and standalone bold lines (<code>**Title**:</code>). Returns a list of <code>{title, body[]}</code> dicts.</td></tr>
+      <tr><td>2 — Classify</td><td><code>classify_section(title)</code></td><td>Regex-based category assignment: <code>risk | usage | support | financial | action | overview | general</code>.</td></tr>
+      <tr><td>3 — Meta lookup</td><td><code>SECTION_META[cat]</code></td><td>Fetches colour, background, icon SVG path, and display label for the section's header chip.</td></tr>
+      <tr><td>4 — Render body</td><td><code>render_section_body(cat, body_md)</code></td><td>Routes to the category-specific renderer (see below). Falls back to <code>md_to_html()</code> for unrecognised categories.</td></tr>
+      <tr><td>5 — Card wrap</td><td><code>card_wrap(content, border_color)</code></td><td>Wraps HTML in a styled <code>&lt;div&gt;</code> with left accent border, border-radius, and optional <code>height:100%</code> for equal-height columns.</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Section-specific renderers</h3>
+  <table>
+    <thead><tr><th>Category</th><th>Renderer</th><th>Output components</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge badge-navy">overview</span></td><td><code>render_overview()</code></td><td>Key–value rows for <em>Overall Status</em>, <em>Primary Driver</em>, <em>Risk Level</em>; narrative paragraphs for everything else.</td></tr>
+      <tr><td><span class="badge badge-teal">usage</span></td><td><code>render_usage()</code></td><td>Stat tiles (number + trend arrow) for DAU / NPS / adoption metrics; positive and warning bullet lists; adoption insight callout.</td></tr>
+      <tr><td><span class="badge badge-amber">support</span></td><td><code>render_support()</code></td><td>Ticket cards with severity and status badges for each <code>TKT-NNN</code> reference; summary bullet list.</td></tr>
+      <tr><td><span class="badge badge-navy">financial</span></td><td><code>render_financial()</code></td><td>Key–value grid for contract fields (ARR, Renewal Date, Plan Tier); expansion signal callout block.</td></tr>
+      <tr><td><span class="badge badge-coral">risk</span></td><td><code>render_risk()</code></td><td>Score ring SVG (0–100), risk level badge, numbered risk-factor list, confidence meter (3-dot indicator).</td></tr>
+      <tr><td><span class="badge badge-teal">action</span></td><td><code>render_actions()</code></td><td>Numbered priority action cards, each with a <em>What</em> and <em>Why</em> field and a colour-coded index dot (coral → amber → teal).</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Text analysis helpers</h3>
+  <ul>
+    <li><code>detect_status(text)</code> — regex scans for <em>Overall Status: Critical/At Risk/Healthy</em> then keyword fallback → returns one of <code>Healthy | At Risk | Critical | Reviewed</code>.</li>
+    <li><code>extract_score(text)</code> — captures integer 0–100 after <code>health score:</code> pattern; returns <code>None</code> if absent.</li>
+    <li><code>extract_confidence(text)</code> — extracts <code>High | Medium | Low</code> from <code>Confidence: …</code> line.</li>
+  </ul>
+
+  
+  <h2 id="portfolio">6. Portfolio Overview Engine</h2>
+  <p>The portfolio panel loads automatically on first session start (<code>portfolio_cache is None and portfolio_error is None</code>) and can be manually refreshed via the <strong>↻ Refresh</strong> button above the expander.</p>
+
+  <h3>Data flow</h3>
+  <ol>
+    <li><code>fetch_portfolio()</code> posts to the Portfolio Aggregator flow.</li>
+    <li>The response contains <strong>two output nodes</strong>: the table node (identified by <code>display_name == "Portfolio Aggregator"</code>) and the narrative node.</li>
+    <li><code>parse_portfolio_table(text)</code> splits the pipe-delimited table, skipping the header row, and builds <code>{ counts, top5, all }</code>.</li>
+    <li>Results are stored in <code>st.session_state.portfolio_cache</code>. Errors are stored in <code>st.session_state.portfolio_error</code>.</li>
+    <li>The donut SVG chart and Top-5 attention table are rendered inside equal-height columns using <code>card_wrap(..., _full_h=True)</code>.</li>
+  </ol>
+
+  <h3>Session state keys</h3>
+  <table>
+    <thead><tr><th>Key</th><th>Type</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td><code>report_cache</code></td><td><code>dict[str, dict]</code></td><td>Per-account report cache. Keyed by account name. Each value: <code>{explanation, generated_at, acc_id}</code>.</td></tr>
+      <tr><td><code>portfolio_cache</code></td><td><code>dict | None</code></td><td>Portfolio data: <code>{chart: {counts, top5, all}, narrative: str}</code>. <code>None</code> triggers auto-load.</td></tr>
+      <tr><td><code>portfolio_error</code></td><td><code>str | None</code></td><td>Last Langflow error message for the portfolio call, if any.</td></tr>
+      <tr><td><code>portfolio_loaded_at</code></td><td><code>str | None</code></td><td>Human-readable timestamp of last successful portfolio load (e.g. <code>"02:34 PM"</code>).</td></tr>
+      <tr><td><code>pending_generate</code></td><td><code>str | None</code></td><td>Account name awaiting report generation. Set on button click rerun; cleared after API response. Drives the loading state and disables the Generate button.</td></tr>
+    </tbody>
+  </table>
+
+  
+  <h2 id="startup">7. Startup &amp; Deployment</h2>
+
+  <h3>One-click startup (start.bat)</h3>
+  <table>
+    <thead><tr><th>Step</th><th>Action</th><th>Detail</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Auth token</td><td><code>ngrok config add-authtoken {NGROK_TOKEN}</code></td></tr>
+      <tr><td>2</td><td>Wait for Langflow</td><td>Polls <code>http://localhost:7860/health</code> every 2 s</td></tr>
+      <tr><td>3</td><td>Langflow tunnel</td><td><code>ngrok http 7860</code> → reads public URL from ngrok API at <code>:4040/api/tunnels</code></td></tr>
+      <tr><td>4</td><td>Start Streamlit</td><td><code>python -m streamlit run app\pulse_app.py --server.port 8501</code></td></tr>
+      <tr><td>5</td><td>Streamlit tunnel</td><td><code>ngrok http 8501</code> → polls <code>:4040/api/tunnels</code> for the second HTTPS URL</td></tr>
+      <tr><td>6</td><td>Inject credentials</td><td>Generates a temp HTML page that writes all four settings to localStorage and redirects to <code>http://localhost:5500</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Manual startup (without start.bat)</h3>
+  <pre><code><span class="hl-cmt"># 1. Install dependencies (once only)</span>
+<span class="hl-kw">pip</span> install -r requirements.txt
+
+<span class="hl-cmt"># 2. Start Streamlit with credentials as env vars</span>
+<span class="hl-key">LANGFLOW_URL</span>=<span class="hl-str">https://aaa.ngrok-free.app/api/v1/run/&lt;account-flow-id&gt;</span> \
+<span class="hl-key">LANGFLOW_PORTFOLIO_URL</span>=<span class="hl-str">https://aaa.ngrok-free.app/api/v1/run/&lt;portfolio-flow-id&gt;</span> \
+<span class="hl-key">LANGFLOW_API_KEY</span>=<span class="hl-str">sk-...</span> \
+<span class="hl-kw">python</span> -m streamlit run app/pulse_app.py
+
+<span class="hl-cmt"># 3. Serve the doc site locally (separate terminal)</span>
+<span class="hl-kw">python</span> -m http.server 5500</code></pre>
+
+  <h3>Streamlit configuration (.streamlit/config.toml)</h3>
+  <pre><code>[server]
+<span class="hl-key">enableCORS</span>  = <span class="hl-str">false</span>
+<span class="hl-key">headless</span>    = <span class="hl-str">true</span></code></pre>
+  <p><code>enableCORS = false</code> is required to allow the ngrok-tunnelled Streamlit app to be loaded inside the GitHub Pages iframe from a different origin.</p>
+
+  <h3>Dependencies</h3>
+  <table>
+    <thead><tr><th>Package</th><th>Min version</th><th>Role</th></tr></thead>
+    <tbody>
+      <tr><td><code>streamlit</code></td><td><code>≥ 1.32.0</code></td><td>Dashboard framework. <code>st.columns([5,1], vertical_alignment="center")</code> requires ≥ 1.32.</td></tr>
+      <tr><td><code>requests</code></td><td><code>≥ 2.31.0</code></td><td>Synchronous HTTP calls to Langflow REST API.</td></tr>
+      <tr><td><code>markdown</code></td><td><code>≥ 3.5.0</code></td><td>Optional — converts portfolio narrative Markdown to HTML. Graceful fallback if absent.</td></tr>
+      <tr><td><code>fpdf2</code></td><td><code>≥ 2.7.0</code></td><td>Optional — PDF report generation. Falls back to UTF-8 plain text if absent.</td></tr>
+      <tr><td><code>langflow</code></td><td><code>≥ 1.0.0</code></td><td>Langflow Desktop SDK (used for type hints; calls go through <code>requests</code> directly).</td></tr>
+    </tbody>
+  </table>
+
+  
+  <h2 id="security">8. Security Model</h2>
+
+  <table>
+    <thead><tr><th>Control</th><th>Implementation</th></tr></thead>
+    <tbody>
+      <tr><td>No credentials in source</td><td>All secrets flow via query params or env vars — nothing hard-coded except flow IDs (non-secret).</td></tr>
+      <tr><td>No credentials in git history</td><td><code>.gitignore</code> excludes <code>.env</code>, <code>*.bat</code> variants, and ngrok token files.</td></tr>
+      <tr><td>API key storage</td><td>Stored in browser <code>localStorage</code> under a versioned key. Never written to disk or logged server-side.</td></tr>
+      <tr><td>LLM isolation</td><td>LLM API key is held by Langflow Desktop only. Streamlit never receives or forwards it.</td></tr>
+      <tr><td>ngrok token rotation</td><td>Token in <code>start.bat</code> — rotate before sharing the repository publicly.</td></tr>
+      <tr><td>iframe CORS</td><td><code>enableCORS = false</code> in Streamlit config + ngrok HTTPS tunnel. No wildcard CORS headers on the doc site.</td></tr>
+      <tr><td>Open source</td><td>All application code is public. No obfuscation.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout risk">
+    <div class="callout-title">Public demo note</div>
+    The ngrok free tier generates a new public URL on each tunnel restart. If sharing the demo with stakeholders, either keep <code>start.bat</code> running or upgrade to a paid ngrok plan with a fixed reserved domain.
+  </div>
+
+  <div class="callout info">
+    <div class="callout-title">Account data is synthetic</div>
+    The 20 accounts (ACC-001 → ACC-020) reference fictional company names. All health signals, ticket IDs, and contract values are generated by the RAG knowledge base and are not derived from real customer data.
+  </div>
+
+</div>
+
+<footer>
+  <p style="margin:0">Pulse AI  ·  Technical Documentation  ·  v3.0  ·  Internal Reference</p>
+  <p style="margin:4px 0 0;font-size:11px;color:#9AA5B0">Made with IBM Bob</p>
+</footer>
+
 </body>
 </html>
