@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulse AI – Competitive Analysis</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    :root {
+      --navy: #17395f;
+      --light: #e9f0fa;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --border: #cbd5e1;
+      --bg: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: #f8fafc;
+      line-height: 1.5;
+    }
+
+    .page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px 18px 48px;
+      background: var(--bg);
+    }
+
+    .title-bar {
+      background: var(--navy);
+      color: #fff;
+      text-align: center;
+      font-weight: 700;
+      font-size: 28px;
+      padding: 10px 16px;
+      letter-spacing: .2px;
+    }
+
+    .subtitle-bar {
+      background: var(--light);
+      color: #243b53;
+      text-align: center;
+      font-weight: 700;
+      font-size: 18px;
+      padding: 6px 16px;
+      margin-bottom: 22px;
+    }
+
+    h2.section {
+      font-size: 22px;
+      margin: 30px 0 14px;
+      padding: 8px 0 8px 14px;
+      border-left: 4px solid #1e3a5f;
+      background: var(--light);
+      color: #243b53;
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin: 18px 0 8px;
+      color: #243b53;
+    }
+
+    p {
+      margin: 8px 0 12px;
+      font-size: 16px;
+    }
+
+    ul {
+      margin: 8px 0 14px 24px;
+      padding: 0;
+      font-size: 16px;
+    }
+
+    li { margin: 6px 0; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10px 0 18px;
+      background: #fff;
+    }
+
+    th, td {
+      border: 1px solid #111827;
+      padding: 10px 12px;
+      vertical-align: top;
+      text-align: left;
+      font-size: 15px;
+    }
+
+    th {
+      background: #1e3a5f;
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .competitor-block {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin: 16px 0;
+      background: #fff;
+    }
+
+    .competitor-block h3 {
+      margin-top: 0;
+      color: var(--navy);
+    }
+
+    .competitor-block ul {
+      margin-bottom: 6px;
+    }
+
+    .angle {
+      background: var(--light);
+      border-left: 4px solid var(--navy);
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-size: 15px;
+      margin-top: 10px;
+      color: #243b53;
+    }
+
+    .angle strong {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: 700;
+    }
+
+    .summary-block {
+      background: #f0f7ff;
+      border: 1px solid #bfdbfe;
+      border-left: 4px solid var(--navy);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin-top: 24px;
+      font-size: 16px;
+      color: #1e3a5f;
+    }
+
+    .summary-block h3 {
+      margin-top: 0;
+      color: var(--navy);
+    }
+
+    @media print {
+      body { background: #fff; }
+      .page { max-width: none; padding: 0; }
+      .title-bar, .subtitle-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="title-bar">Pulse AI – Competitive Analysis</div>
+    <div class="subtitle-bar">AI-Native Competitors | IPL Neural Navigators | ICAIPM2026F</div>
+
+    <h2 class="section">At a Glance</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:28%;">Company</th>
+          <th style="width:52%;">What It Does</th>
+          <th style="width:20%;">Segment</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Staircase AI (by Gainsight)</td>
+          <td>Reads sentiment and relationship health from emails, calls, and chat in real time</td>
+          <td>Enterprise (via Gainsight)</td>
+        </tr>
+        <tr>
+          <td>Oliv.ai</td>
+          <td>AI agents that complete CS tasks end-to-end, not just flag them</td>
+          <td>Mid-market</td>
+        </tr>
+        <tr>
+          <td>CustomerScore.io</td>
+          <td>AI churn/expansion score with the top 3 drivers explained</td>
+          <td>SMB / mid-market</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section">How Pulse AI Compares</h2>
+
+    <div class="competitor-block">
+      <h3>Staircase AI (by Gainsight)</h3>
+      <ul>
+        <li>Strong at reading tone and relationship signals from conversations, but only available as part of Gainsight's larger, heavier platform, and it alerts on sentiment rather than producing a grounded report.</li>
+      </ul>
+      <div class="angle">
+        <strong>Pulse AI's angle:</strong>
+        A standalone report grounded in actual account records (usage, tickets, billing), not just conversation tone, and no need to buy into a full CS suite first.
+      </div>
+    </div>
+
+    <div class="competitor-block">
+      <h3>Oliv.ai</h3>
+      <ul>
+        <li>Genuinely agentic and fast to deploy but built around one agent taking action for one team, not a single report multiple stakeholders (CS, Product, Eng, Sales) can all read.</li>
+      </ul>
+      <div class="angle">
+        <strong>Pulse AI's angle:</strong>
+        One report, five audiences — each section (usage, support, risk, actions) is written to be useful to a different role.
+      </div>
+    </div>
+
+    <div class="competitor-block">
+      <h3>CustomerScore.io</h3>
+      <ul>
+        <li>Closest analog: explainable scoring instead of a black-box number. But it needs 2+ months of history and 40+ past churn events before it's reliable, and the output is a score plus 3 bullet points, not a full narrative.</li>
+      </ul>
+      <div class="angle">
+        <strong>Pulse AI's angle:</strong>
+        No training period — it reasons over whatever data already exists for an account, and produces a full structured report rather than a score.
+      </div>
+    </div>
+
+    <div class="summary-block">
+      <h3>Summary: Where Pulse AI Fits</h3>
+      <p>
+        Each of these three does one thing well: Staircase AI reads tone, Oliv.ai takes action, CustomerScore.io explains a score.
+        None of them produces one grounded report that every role can read, and none works without either a bigger platform or a training period behind it.
+        Pulse AI starts from whatever account data already exists and turns it straight into a single narrative report — instead of an alert, an action, or a number.
+      </p>
+    </div>
+
+  </main>
+</body>
+</html>
