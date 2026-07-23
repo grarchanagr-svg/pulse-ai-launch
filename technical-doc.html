@@ -194,7 +194,7 @@
     </p>
 
     <ol>
-      <li>Query -account_id (e.g. ACC-003) is sent as the only input.</li>
+      <li>Query -account_id (e.g. ACC-003), optionally followed by "Additional Queries: &lt;question&gt;" to also ask something specific.</li>
       <li>Embed -the account_id is converted into a vector using the same embedding model that indexed the knowledge base.</li>
       <li>Retrieve -the most similar chunks are pulled from the vector store: CRM notes, tickets, usage data, and billing records for that account.</li>
       <li>Augment -those chunks are inserted into the model's prompt as grounding context, alongside instructions on exactly how to structure the output.</li>
@@ -219,7 +219,7 @@
     <h3>Flow 1 -Account Health</h3>
     <p>Generates a full executive health report for one account.</p>
     <ol>
-      <li>Chat Input receives the account_id (e.g. ACC-003).</li>
+      <li>Chat Input receives the account_id (e.g. ACC-003), optionally followed by "Additional Queries: &lt;question&gt;".</li>
       <li>
         Extract Account Filter (custom component) reads the ID with a simple pattern match and builds a metadata filter,
         e.g. {"account_id": "ACC-003"}.
@@ -231,7 +231,8 @@
       <li>Data → Text formats those records into one context block covering all four data categories.</li>
       <li>
         Prompt Template combines the account_id, the retrieved context, and detailed formatting rules -including the
-        exact scoring rubric used to calculate the Health Score.
+        exact scoring rubric used to calculate the Health Score. If Additional Queries were included, it also appends a
+        final Additional Analysis section answering that specific ask.
       </li>
       <li>
         OpenAI (gpt-4o-mini, temperature 0.1) writes the markdown report and the final score.
@@ -241,7 +242,8 @@
       </li>
     </ol>
 
-    <p>API call: POST /api/v1/run/&lt;account-flow-id&gt; {"input_value": "ACC-003", "input_type": "chat"}</p>
+    <p>API call:  POST /api/v1/run/&lt;account-flow-id&gt;   {"input_value": "ACC-003", "input_type": "chat"}</p>
+    <p>To also request a specific ask, append it to input_value, e.g. "ACC-003 Additional Queries: How is their NPS trending?"</p>
 
     <div class="figure">
       <img src="images/figure2-flow1-account-health.png" alt="figure2-flow1-account-health.png" />
